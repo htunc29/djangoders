@@ -382,11 +382,6 @@ pip install django
 ### 2. "TemplateDoesNotExist"
 **Çözüm:** Template dosyası yanlış yerde veya INSTALLED_APPS'e uygulama eklenmemiş
 
-### 3. "Page not found (404)"
-**Çözüm:** URL yapılandırması hatalı, urls.py dosyalarını kontrol edin
-
-### 4. "CSRF verification failed"
-**Çözüm:** Form'larda `{% csrf_token %}` tag'i eksik
 
 ---
 
