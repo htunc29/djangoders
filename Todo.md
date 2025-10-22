@@ -10,13 +10,12 @@
 8. Django tagleri
 9. Fake user control
 
-'''
+```django
 {{ urun.fiyat|floatformat:2 }}   {# 2 ondalıklı gösterir #}
 {{ urun.aciklama|truncatechars:50 }}   {# 50 karaktere kısaltır #}
 {{ urun.tarih|date:"d.m.Y" }}
 {% url 'urun_detay' urun.slug %}
-
-'''
+```
 # 27 Ekim - 2 Kasım
 0. Dinamik url tanımlama
 1. Base.html mantığı
