@@ -1,0 +1,75 @@
+*{
+  font-family: "poppins",sans-serif;
+}
+body{
+  max-width: 80%;
+  margin: auto;
+  background: linear-gradient(135deg,rgb(236, 236, 236) 30%,rgb(245,245,245) 100%);
+}
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.searchbar{
+ width: 40%;
+}
+.searchbar input{
+  width: 100%;
+  outline:none;
+  padding: 5px;
+  border:2px solid #ccc
+}
+.searchbar input:focus{
+  border: 2px solid orangered;
+}
+
+.authbar button{
+  background-color: orangered;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  border-bottom: 2px solid black;
+  padding: 10px;
+}
+nav a{
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+nav a:hover{
+  color: orangered;
+}
+section{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  padding: 20px 0px;
+}
+.card{
+  background-color: white;
+  border-radius: 10px;
+  height: 420px;
+}
+.card-header{
+  height: 70%;
+  padding: 10px;
+}
+.card-body{
+  padding: 10px;
+}
+.card-header img{
+  width: 100%;
+}
+.price{
+  color: forestgreen;
+  font-weight: bold;
+}

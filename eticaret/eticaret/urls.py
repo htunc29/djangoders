@@ -19,7 +19,6 @@ from django.urls import path,include
 from . import views
 urlpatterns = [
     path('',views.home,name="anasayfa"),
-    path('urunler/', include('urunler.urls')),
-    path('kullanicilar/',include('kullanicilar.urls')),
+    path('<slug:kategori_adi>/',views.category,name="kategori"),
     path('admin/', admin.site.urls),
 ]

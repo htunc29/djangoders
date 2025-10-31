@@ -17,4 +17,6 @@ def users(request):
         }
 
     ]
-    return render(request,"users/index.html",{"yas":16,"kullanicilar":kullanicilar})
+    return render(request,"users/index.html",{
+    "yas":16,"kullanicilar":kullanicilar
+    })

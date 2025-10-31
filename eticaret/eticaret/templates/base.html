@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {%block baslik %}
+    {%endblock%}
+  </title>
+  {%load static%}
+  <link rel="stylesheet" href="{%static 'css/style.css'%}">
+</head>
+
+<body>
+<div class="header">
+  <h1>DjangoYol</h1>
+  <div class="searchbar">
+   <input type="search" placeholder="Ara..."/>
+  </div>
+  <div class="authbar">
+    <button>Giriş Yap</button>
+    <button>Kayıt Ol</button>
+  </div>
+</div>
+
+<nav>
+  <a href="{%url 'anasayfa'%}">Anasayfa</a>
+  <a href="{%url 'kategori' 'Elektronik'%}">Elektronik</a>
+  <a href="{%url 'kategori' 'Giyim'%}">Giyim</a>
+  <a href="{%url 'kategori' 'Ev-Esyasi'%}">Ev Eşyası</a>
+  <a href="{%url 'kategori' 'Kozmetik'%}">Kozmetik</a>
+</nav>
+
+{%block icerik %}
+{%endblock%}
+</body>
+
+</html>
