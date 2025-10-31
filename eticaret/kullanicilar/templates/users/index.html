@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Kullanicilar</h1>
+  {{yas}}
+  {% if yas >= 18 %}
+    <p>Hoşgeldin</p>
+  {%else%}
+    <p>Sayfayı görüntülemen yasak</p>
+  {%endif%}
+  {%for kullanici in kullanicilar%}
+  <p>AD:{{kullanici.ad}}</p>
+  <p>SOYAD:{{kullanici.soyad}}</p>
+  <hr/>
+  {%endfor%}
+
+  {{1232132131.12312321|floatformat:2}}
+</body>
+</html>
