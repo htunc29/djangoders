@@ -6,19 +6,7 @@ Anasayfa
 
 {%block icerik %}
 
-<section>
 
-{%for urun in urunler%}
-<div class="card">
-    <div class="card-header">
-        <img src="{{urun.resimler.0}}" alt="{{urun.urun_adi}}"/>
-    </div>
-    <div class="card-body">
-        <p>{{urun.urun_adi}}</p>
-        <p class="price">{{urun.fiyat}} ₺</p>
-    </div>
-</div>
-{%endfor%}
 
 </section>
 

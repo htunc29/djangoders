@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+{%block icerik%}
+<form action="post">
+  {%csrf_token%}
+  <div class="mb-3">
+    <label for="username" class="form-label">Kullanıcı Adı</label>
+    <input type="text" class="form-control" name="username" id="username">
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Şifre</label>
+    <input type="password" class="form-control" name="password" id="password">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Giriş Yap</button>
+</form>
+{%endblock%}

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'eticaret',
     'urunler',
     'kullanicilar',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
