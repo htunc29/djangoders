@@ -1,3 +1,6 @@
+# Güncellemeler
+> Django giriş yap ve kayıt ol sayfaları oluşturuldu,kayıt olma ve kullanıcı girişi işlemleri tamamlandı
+
 # 🐍 Django Kullanıcılar App Dersi
 
 <div align="center">
@@ -62,14 +65,14 @@
 
 ## 📚 Bu Derste Neler Öğreneceğiz?
 
-✅ Django projesi başlatma (startproject)  
-✅ Sanal ortam oluşturma ve yönetme  
-✅ Yeni bir Django app oluşturma  
-✅ HTML sayfaları (template) hazırlama  
-✅ Sayfalara veri gönderme  
-✅ Listelerle çalışma (for döngüsü)  
-✅ Koşullu durumlar (if-else)  
-✅ Sayfa linkleri oluşturma  
+✅ Django projesi başlatma (startproject)
+✅ Sanal ortam oluşturma ve yönetme
+✅ Yeni bir Django app oluşturma
+✅ HTML sayfaları (template) hazırlama
+✅ Sayfalara veri gönderme
+✅ Listelerle çalışma (for döngüsü)
+✅ Koşullu durumlar (if-else)
+✅ Sayfa linkleri oluşturma
 
 ---
 
@@ -430,7 +433,7 @@ def kullanicilar_listesi(request):
         'toplam_kullanici': 150,
         'site_adi': 'Django Kursu'
     }
-    
+
     # Veriyi sayfaya gönder
     return render(request, 'kullanicilar/liste.html', context)
 ```
@@ -459,11 +462,11 @@ def kullanicilar_listesi(request):
         {'ad': 'Mehmet', 'soyad': 'Demir', 'yas': 28},
         {'ad': 'Zeynep', 'soyad': 'Şahin', 'yas': 22},
     ]
-    
+
     context = {
         'kullanicilar': kullanicilar
     }
-    
+
     return render(request, 'kullanicilar/liste.html', context)
 ```
 
@@ -478,7 +481,7 @@ def kullanicilar_listesi(request):
         <th>Soyad</th>
         <th>Yaş</th>
     </tr>
-    
+
     {% for kullanici in kullanicilar %}
     <tr>
         <td>{{ kullanici.ad }}</td>
@@ -500,7 +503,7 @@ def kullanicilar_listesi(request):
 ```html
 {% if kullanicilar %}
     <p>✅ Toplam {{ kullanicilar|length }} kullanıcı bulundu.</p>
-    
+
     <ul>
     {% for kullanici in kullanicilar %}
         <li>{{ kullanici.ad }} {{ kullanici.soyad }}</li>
@@ -517,7 +520,7 @@ def kullanicilar_listesi(request):
 {% for kullanici in kullanicilar %}
     <div class="kullanici-kart">
         <h3>{{ kullanici.ad }} {{ kullanici.soyad }}</h3>
-        
+
         {% if kullanici.yas >= 30 %}
             <span class="rozet kirmizi">🏆 Kıdemli</span>
         {% elif kullanici.yas >= 25 %}
@@ -584,19 +587,19 @@ TEMPLATES = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}E-Ticaret Sitesi{% endblock %}</title>
-    
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
         }
-        
+
         /* Header / Navbar */
         .navbar {
             background: #092E20;
@@ -606,35 +609,35 @@ TEMPLATES = [
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .navbar-brand {
             font-size: 1.5rem;
             font-weight: bold;
         }
-        
+
         .navbar-menu {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
-        
+
         .navbar-menu a {
             color: white;
             text-decoration: none;
             transition: color 0.3s;
         }
-        
+
         .navbar-menu a:hover {
             color: #4CAF50;
         }
-        
+
         /* Ana İçerik */
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
-        
+
         /* Footer */
         .footer {
             background: #092E20;
@@ -643,26 +646,26 @@ TEMPLATES = [
             padding: 2rem;
             margin-top: 3rem;
         }
-        
+
         /* Mesaj kutuları */
         .alert {
             padding: 1rem;
             margin: 1rem 0;
             border-radius: 5px;
         }
-        
+
         .alert-success {
             background: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-        
+
         .alert-error {
             background: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-        
+
         /* Ek stil bloku */
         {% block extra_css %}{% endblock %}
     </style>
@@ -677,7 +680,7 @@ TEMPLATES = [
             <li><a href="{% url 'anasayfa' %}">🏠 Ana Sayfa</a></li>
             <li><a href="{% url 'kullanicilar_listesi' %}">👥 Kullanıcılar</a></li>
             <li><a href="{% url 'urun_listesi' %}">📦 Ürünler</a></li>
-            
+
             {% if user.is_authenticated %}
                 <li><a href="#">👋 {{ user.username }}</a></li>
                 <li><a href="{% url 'logout' %}">🚪 Çıkış</a></li>
@@ -733,7 +736,7 @@ TEMPLATES = [
 <div class="kullanici-container">
     {% if kullanicilar %}
         <p>Toplam {{ kullanicilar|length }} kullanıcı bulundu.</p>
-        
+
         <table border="1" style="width: 100%; margin-top: 20px;">
             <thead>
                 <tr>
@@ -778,18 +781,18 @@ TEMPLATES = [
         border-collapse: collapse;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    
+
     th {
         background: #092E20;
         color: white;
         padding: 10px;
     }
-    
+
     td {
         padding: 10px;
         text-align: center;
     }
-    
+
     tr:nth-child(even) {
         background: #f2f2f2;
     }
@@ -856,18 +859,18 @@ def kullanici_detay(request, kullanici_id):
         {'id': 2, 'ad': 'Ayşe', 'soyad': 'Kaya', 'yas': 30, 'email': 'ayse@example.com'},
         {'id': 3, 'ad': 'Mehmet', 'soyad': 'Demir', 'yas': 28, 'email': 'mehmet@example.com'},
     ]
-    
+
     # ID'ye göre kullanıcıyı bul
     kullanici = None
     for k in kullanicilar:
         if k['id'] == kullanici_id:
             kullanici = k
             break
-    
+
     context = {
         'kullanici': kullanici
     }
-    
+
     return render(request, 'kullanicilar/detay.html', context)
 ```
 
@@ -892,7 +895,7 @@ def kullanici_detay(request, kullanici_id):
         <p><strong>ID:</strong> {{ kullanici.id }}</p>
         <p><strong>Yaş:</strong> {{ kullanici.yas }}</p>
         <p><strong>Email:</strong> {{ kullanici.email }}</p>
-        
+
         {% if kullanici.yas >= 30 %}
             <span style="background: orange; color: white; padding: 5px 10px; border-radius: 5px;">
                 🏆 Kıdemli Kullanıcı
@@ -949,13 +952,13 @@ def urun_detay(request, urun_slug):
         {'slug': 'laptop-asus-rog', 'ad': 'Asus ROG Laptop', 'fiyat': 25000},
         {'slug': 'iphone-15-pro', 'ad': 'iPhone 15 Pro', 'fiyat': 60000},
     ]
-    
+
     urun = None
     for u in urunler:
         if u['slug'] == urun_slug:
             urun = u
             break
-    
+
     context = {'urun': urun}
     return render(request, 'urunler/detay.html', context)
 ```
@@ -979,8 +982,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('kategori/<slug:kategori_slug>/sayfa/<int:sayfa>/', 
-         views.kategori_sayfalama, 
+    path('kategori/<slug:kategori_slug>/sayfa/<int:sayfa>/',
+         views.kategori_sayfalama,
          name='kategori_sayfalama'),
 ]
 ```
@@ -1040,16 +1043,16 @@ from . import views
 urlpatterns = [
     # Ana blog sayfası
     path('', views.blog_anasayfa, name='blog_anasayfa'),
-    
+
     # Kategori filtreleme
     path('kategori/<slug:kategori_slug>/', views.kategori_yazilari, name='kategori_yazilari'),
-    
+
     # Yazar sayfası
     path('yazar/<str:username>/', views.yazar_profil, name='yazar_profil'),
-    
+
     # Tek yazı detayı
     path('yazi/<int:yazi_id>/<slug:yazi_slug>/', views.yazi_detay, name='yazi_detay'),
-    
+
     # Arama
     path('ara/', views.arama, name='blog_arama'),
 ]
@@ -1091,12 +1094,12 @@ def kategori_yazilari(request, kategori_slug):
             {{ yazi.baslik }}
         </a>
     </h3>
-    <p>Kategori: 
+    <p>Kategori:
         <a href="{% url 'kategori_yazilari' yazi.kategori_slug %}">
             {{ yazi.kategori }}
         </a>
     </p>
-    <p>Yazar: 
+    <p>Yazar:
         <a href="{% url 'yazar_profil' yazi.yazar_username %}">
             {{ yazi.yazar }}
         </a>
@@ -1213,7 +1216,7 @@ def urun_listesi(request):
         {'ad': 'Mouse', 'fiyat': 150, 'stok': 20},
         {'ad': 'Klavye', 'fiyat': 500, 'stok': 0},
     ]
-    
+
     context = {'urunler': urunler}
     return render(request, 'urunler/liste.html', context)
 ```
@@ -1224,7 +1227,7 @@ def urun_listesi(request):
     <div class="urun-kart">
         <h3>{{ urun.ad }}</h3>
         <p>Fiyat: {{ urun.fiyat }} ₺</p>
-        
+
         {% if urun.stok > 0 %}
             <span class="yesil">✅ Stokta var ({{ urun.stok }} adet)</span>
         {% else %}
