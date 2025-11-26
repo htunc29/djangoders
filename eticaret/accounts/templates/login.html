@@ -1,6 +1,13 @@
 {%extends 'base.html'%}
 {%block icerik%}
-<form action="post">
+{%if messages%}
+{%for message in messages%}
+<div class="alert alert-danger">
+  {{message}}
+</div>
+{%endfor%}
+{%endif%}
+<form method="post">
   {%csrf_token%}
   <div class="mb-3">
     <label for="username" class="form-label">Kullanıcı Adı</label>

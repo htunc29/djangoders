@@ -7,6 +7,15 @@ from django.contrib import messages
 
 
 def login_view(request):
+    if request.method=="POST":
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        user=authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('anasayfa')
+        messages.error(request,"Kullanıcı bulunamadı")
+        return render(request,'login.html')
     return render(request,"login.html")
 
 def register_view(request):
@@ -20,6 +29,7 @@ def register_view(request):
 
         if password != confirm_password:
             messages.warning(request,"Girdiğin şifreler uyuşmuyor gözlerini bir baktır kanka 😂")
+            messages.warning(request,"Bir daha dene")
             return render(request,"register.html")
         if User.objects.filter(username=username).exists():
             messages.warning(request,"Kanka seçtiğin kullanıcı adı baya popüler sanırım başkası almış bile 😄")
@@ -32,6 +42,5 @@ def register_view(request):
             email=email
         )
         user.save()
-        login(request,user)
-        return redirect("anasayfa")
+        return redirect("login")
     return render(request,"register.html")
