@@ -44,3 +44,7 @@ def register_view(request):
         user.save()
         return redirect("login")
     return render(request,"register.html")
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

@@ -6,9 +6,35 @@ Anasayfa
 
 {%block icerik %}
 
+{%if user.is_authenticated%}
+<div class="card">
+
+  <div class="card-header">
+    <div class="card-title">{{user.first_name}} {{user.last_name}}</div>
+  </div>
+
+  <div class="card-body">
+    <p>Email:{{user.email}}</p>
+    <p>Kullanıcı Adı:{{user.username}}</p>
+    <p>Son Giriş:{{user.last_login}}</p>
+    <p>Hesap Açılış Tarihi:{{user.date_joined|timesince}} önce hesap açıldı</p>
+  </div>
+
+</div>
 
 
-</section>
+{%else%}
+<div class="alert alert-danger">
+  Bu sayfayı görüntüleme izniniz yok
+</div>
+{%endif%}
+
+
+
+
+
+
+
 
 
 {%endblock%}
