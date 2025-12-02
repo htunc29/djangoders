@@ -1,40 +1,724 @@
-{% extends 'base.html'%}
+{%extends 'base.html'%}
 
-{%block baslik %}
-Anasayfa
-{%endblock%}
+{%block content%}
+<main>
+  <main class="max-w-7xl mx-auto px-4">
+    <section class="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 items-center justify-items-center gap-3 md:gap-5 mt-5">
+      <div><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+      <div><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+      <div><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+      <div><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+      <div><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+      <div class="hidden sm:block"><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+      <div class="hidden md:block"><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+      <div class="hidden md:block"><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+      <div class="hidden lg:block"><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+      <div class="hidden lg:block"><img src="https://img.freepik.com/free-psd/3d-rendering-spring-icon-design_23-2151931163.jpg?t=st=1764665148~exp=1764668748~hmac=b0e62e8983aae734df88ba798b8378a42fa1dbc3f46983d48f15c8e5199bef59&w=2000" class="rounded-full w-16 h-16 md:w-20 md:h-20 border-3 border-green-500"
+          alt=""></div>
+    </section>
 
-{%block icerik %}
+    <section class="bg-linear-to-b from-customgray to-white rounded-md shadow-md min-h-[300px] md:min-h-[550px] mt-5 p-4">
+      <div class="flex justify-between items-center">
+        <h2 class="text-lg md:text-2xl font-bold">Popüler Ürünler</h2>
+        <a class="text-sm md:text-xl gap-1 md:gap-2 flex items-center" href="#">Tümünü Göster <svg xmlns="http://www.w3.org/2000/svg"
+            width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-chevron-right-icon lucide-chevron-right">
+            <path d="m9 18 6-6-6-6" />
+          </svg></a>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 mt-5">
+        <div class="shadow-md rounded-md flex flex-col">
+          <div class="relative">
+            <img class="rounded-t-md"
+              src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+              alt="">
+            <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan
+              1.Ürün</span>
+          </div>
+          <div class="p-2 flex flex-col gap-1">
+            <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+            <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+            <div class="text-sm">
+              <p>4.2 ⭐⭐⭐ (661) 📸</p>
+            </div>
+            <div class="flex flex-col">
+              <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+              <span class="flex items-center ">
+                <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+                <p class="text-pink-700 font-bold">128,24 TL</p>
+              </span>
+            </div>
+            <div class="text-sm font-bold text-gray-500">
+              <p>134,99</p>
+            </div>
+            <div></div>
+          </div>
+        </div>
+        <div class="shadow-md rounded-md flex flex-col">
+          <div class="relative">
+            <img class="rounded-t-md"
+              src="https://cdn.dsmcdn.com/mnresize/620/920/ty1591/prod/QC/20241021/20/987f0b7d-0d64-353d-ab18-d698b9d0a26d/1_org_zoom.jpg"
+              alt="">
+            <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan
+              1.Ürün</span>
+          </div>
+          <div class="p-2 flex flex-col gap-1">
+            <p class="text-sm"><b>UgDelia</b> Kadın Fiyonk Detaylı Triko Kazak</p>
+            <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>{{"24 saatte 3k kişi inceledi"|slice:20}}...</div>
+            <div class="text-sm">
+              <p>4.2 ⭐⭐⭐⭐ (6651) 📸</p>
+            </div>
+            <div class="flex flex-col">
+              <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+              <span class="flex items-center ">
+                <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+                <p class="text-pink-700 font-bold">446,49 TL</p>
+              </span>
+            </div>
+            <div class="text-sm font-bold text-gray-500">
+              <p>469,99</p>
+            </div>
+            <div></div>
+          </div>
+        </div>
+        <div class="shadow-md rounded-md flex flex-col">
+          <div class="relative">
+            <img class="rounded-t-md"
+              src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+              alt="">
+            <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan
+              1.Ürün</span>
+          </div>
+          <div class="p-2 flex flex-col gap-1">
+            <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+            <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+            <div class="flex flex-col">
+              <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+              <span class="flex items-center ">
+                <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+                <p class="text-pink-700 font-bold">128,24 TL</p>
+              </span>
+            </div>
+            <div class="text-sm font-bold text-gray-500">
+              <p>134,99</p>
+            </div>
+            <div></div>
+          </div>
+        </div>
+        <div class="shadow-md rounded-md flex flex-col">
+          <div class="relative">
+            <img class="rounded-t-md"
+              src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+              alt="">
+            <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan
+              1.Ürün</span>
+          </div>
+          <div class="p-2 flex flex-col gap-1">
+            <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+            <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+            <div class="flex flex-col">
+              <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+              <span class="flex items-center ">
+                <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+                <p class="text-pink-700 font-bold">128,24 TL</p>
+              </span>
+            </div>
+            <div class="text-sm font-bold text-gray-500">
+              <p>134,99</p>
+            </div>
+            <div></div>
+          </div>
+        </div>
+        <div class="shadow-md rounded-md flex flex-col">
+          <div class="relative">
+            <img class="rounded-t-md"
+              src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+              alt="">
+            <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan
+              1.Ürün</span>
+          </div>
+          <div class="p-2 flex flex-col gap-1">
+            <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+            <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+            <div class="flex flex-col">
+              <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+              <span class="flex items-center ">
+                <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+                <p class="text-pink-700 font-bold">128,24 TL</p>
+              </span>
+            </div>
+            <div class="text-sm font-bold text-gray-500">
+              <p>134,99</p>
+            </div>
+            <div></div>
+          </div>
+        </div>
+        <div class="shadow-md rounded-md flex flex-col">
+          <div class="relative">
+            <img class="rounded-t-md"
+              src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+              alt="">
+            <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan
+              1.Ürün</span>
+          </div>
+          <div class="p-2 flex flex-col gap-1">
+            <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+            <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+            <div class="flex flex-col">
+              <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+              <span class="flex items-center ">
+                <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+                <p class="text-pink-700 font-bold">128,24 TL</p>
+              </span>
+            </div>
+            <div class="text-sm font-bold text-gray-500">
+              <p>134,99</p>
+            </div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="bg-linear-to-b from-green-500 to-indigo-300 rounded-md shadow-md min-h-[300px] md:min-h-[550px] mt-5 p-4">
+      <div class="flex justify-between items-center">
+        <h2 class="text-lg md:text-2xl text-white flex gap-2 items-center font-bold">
+          <img src="https://cdn.dsmcdn.com/web/prod/fp/flash-sale-icon_1753257230082.svg" alt="flash" class="w-6 h-6 md:w-8 md:h-8">
+          Flaş Ürünler
+        </h2>
+        <a class="text-sm md:text-xl gap-1 md:gap-2 flex items-center text-white" href="#">Tümünü Göster <svg
+            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-chevron-right-icon lucide-chevron-right">
+            <path d="m9 18 6-6-6-6" />
+          </svg></a>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 mt-5">
+        <div class="shadow-md rounded-md flex flex-col bg-white">
+          <div class="relative">
+            <img class="rounded-t-md"
+              src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+              alt="">
+            <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan
+              1.Ürün</span>
+          </div>
+          <div class="p-2 flex flex-col gap-1">
+            <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+            <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+            <div class="text-sm">
+              <p>4.2 ⭐⭐⭐ (661) 📸</p>
+            </div>
+            <div class="flex flex-col">
+              <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+              <span class="flex items-center ">
+                <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+                <p class="text-pink-700 font-bold">128,24 TL</p>
+              </span>
+            </div>
+            <div class="text-sm font-bold text-gray-500">
+              <p>134,99</p>
+            </div>
+            <div></div>
+          </div>
+        </div>
+        <div class="shadow-md rounded-md flex flex-col bg-white"">
+        <div class=" relative">
+          <img class="rounded-t-md"
+            src="https://cdn.dsmcdn.com/mnresize/620/920/ty1591/prod/QC/20241021/20/987f0b7d-0d64-353d-ab18-d698b9d0a26d/1_org_zoom.jpg"
+            alt="">
+          <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan 1.Ürün</span>
+        </div>
+        <div class="p-2 flex flex-col gap-1">
+          <p class="text-sm"><b>UgDelia</b> Kadın Fiyonk Detaylı Triko Kazak</p>
+          <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+              <circle cx="8" cy="21" r="1" />
+              <circle cx="19" cy="21" r="1" />
+              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+            </svg>{{"24 saatte 3k kişi inceledi"|slice:20}}...</div>
+          <div class="text-sm">
+            <p>4.2 ⭐⭐⭐⭐ (6651) 📸</p>
+          </div>
+          <div class="flex flex-col">
+            <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+            <span class="flex items-center ">
+              <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+              <p class="text-pink-700 font-bold">446,49 TL</p>
+            </span>
+          </div>
+          <div class="text-sm font-bold text-gray-500">
+            <p>469,99</p>
+          </div>
+          <div></div>
+        </div>
+      </div>
+      <div class="shadow-md rounded-md flex flex-col bg-white"">
+        <div class=" relative">
+        <img class="rounded-t-md"
+          src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+          alt="">
+        <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan 1.Ürün</span>
+      </div>
+      <div class="p-2 flex flex-col gap-1">
+        <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+        <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+            <circle cx="8" cy="21" r="1" />
+            <circle cx="19" cy="21" r="1" />
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+          </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+        <div class="flex flex-col">
+          <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+          <span class="flex items-center ">
+            <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+            <p class="text-pink-700 font-bold">128,24 TL</p>
+          </span>
+        </div>
+        <div class="text-sm font-bold text-gray-500">
+          <p>134,99</p>
+        </div>
+        <div></div>
+      </div>
+      </div>
+      <div class="shadow-md rounded-md flex flex-col bg-white"">
+        <div class=" relative">
+        <img class="rounded-t-md"
+          src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+          alt="">
+        <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan 1.Ürün</span>
+      </div>
+      <div class="p-2 flex flex-col gap-1">
+        <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+        <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+            <circle cx="8" cy="21" r="1" />
+            <circle cx="19" cy="21" r="1" />
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+          </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+        <div class="flex flex-col">
+          <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+          <span class="flex items-center ">
+            <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+            <p class="text-pink-700 font-bold">128,24 TL</p>
+          </span>
+        </div>
+        <div class="text-sm font-bold text-gray-500">
+          <p>134,99</p>
+        </div>
+        <div></div>
+      </div>
+      </div>
+      <div class="shadow-md rounded-md flex flex-col bg-white"">
+        <div class=" relative">
+        <img class="rounded-t-md"
+          src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+          alt="">
+        <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan 1.Ürün</span>
+      </div>
+      <div class="p-2 flex flex-col gap-1">
+        <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+        <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+            <circle cx="8" cy="21" r="1" />
+            <circle cx="19" cy="21" r="1" />
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+          </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+        <div class="flex flex-col">
+          <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+          <span class="flex items-center ">
+            <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+            <p class="text-pink-700 font-bold">128,24 TL</p>
+          </span>
+        </div>
+        <div class="text-sm font-bold text-gray-500">
+          <p>134,99</p>
+        </div>
+        <div></div>
+      </div>
+      </div>
+      <div class="shadow-md rounded-md flex flex-col bg-white"">
+        <div class=" relative">
+        <img class="rounded-t-md"
+          src="https://cdn.dsmcdn.com/mnresize/620/920/ty1146/product/media/images/prod/SPM/PIM/20240125/18/d7131083-f073-3f9a-be69-88ab2da508a8/1_org_zoom.jpg"
+          alt="">
+        <span class="absolute bottom-0 w-full text-center bg-green-500 text-white text-sm">En Çok Satan 1.Ürün</span>
+      </div>
+      <div class="p-2 flex flex-col gap-1">
+        <p class="text-sm"><b>BGK</b> 5 Çift Karakter Desen Çocuk Çorabı</p>
+        <div class="text-xs flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+            <circle cx="8" cy="21" r="1" />
+            <circle cx="19" cy="21" r="1" />
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+          </svg>{{"4,6B kişinin sepetinde, tükenmeden al!"|slice:20}}...</div>
+        <div class="flex flex-col">
+          <p class="text-green-500 font-bold text-xs"> + DjangoYol Plus'a Özel</p>
+          <span class="flex items-center ">
+            <p class="bg-linear-to-r from-pink-300 to-white text-pink-700 px-2 text-sm">Sepette</p>
+            <p class="text-pink-700 font-bold">128,24 TL</p>
+          </span>
+        </div>
+        <div class="text-sm font-bold text-gray-500">
+          <p>134,99</p>
+        </div>
+        <div></div>
+      </div>
+      </div>
+      </div>
+    </section>
+    <section class="mt-5">
+      <h2 class="text-lg md:text-xl font-bold">Kategorilerdeki İndirimleri Keşfet</h2>
 
-{%if user.is_authenticated%}
-<div class="card">
-
-  <div class="card-header">
-    <div class="card-title">{{user.first_name}} {{user.last_name}}</div>
-  </div>
-
-  <div class="card-body">
-    <p>Email:{{user.email}}</p>
-    <p>Kullanıcı Adı:{{user.username}}</p>
-    <p>Son Giriş:{{user.last_login}}</p>
-    <p>Hesap Açılış Tarihi:{{user.date_joined|timesince}} önce hesap açıldı</p>
-  </div>
-
-</div>
-
-
-{%else%}
-<div class="alert alert-danger">
-  Bu sayfayı görüntüleme izniniz yok
-</div>
-{%endif%}
-
-
-
-
-
-
-
-
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 mt-5">
+        {%load static%}
+        <img src="{%static 'img/categories/erkekgiyim.webp'%}" class="rounded-md w-full" alt="erkek giyim">
+        <img src="{%static 'img/categories/elektronik.webp'%}" class="rounded-md w-full" alt="elektronik">
+        <img src="{%static 'img/categories/annecocuk.webp'%}" class="rounded-md w-full" alt="annecocuk">
+        <img src="{%static 'img/categories/kadingiyim.webp'%}" class="rounded-md w-full" alt="kadingiyim">
+        <img src="{%static 'img/categories/kozmetik.webp'%}" class="rounded-md w-full" alt="kozmetik">
+        <img src="{%static 'img/categories/mobilya.webp'%}" class="rounded-md w-full" alt="mobilya">
+        <img src="{%static 'img/categories/spor.webp'%}" class="rounded-md w-full" alt="spor">
+        <img src="{%static 'img/categories/süpermarket.webp'%}" class="rounded-md w-full" alt="supermarket">
+      </div>
+    </section>
+    <section class="mt-5">
+      <h2 class="text-lg md:text-xl font-bold">Tanıtımlar</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 mt-5">
+        {%load static%}
+        <img src="{%static 'img/categories/reklam1.webp'%}" alt="" class="rounded-md w-full">
+        <img src="{%static 'img/categories/reklam2.webp'%}" alt="" class="rounded-md w-full">
+        <img src="{%static 'img/categories/reklam3.webp'%}" alt="" class="rounded-md w-full">
+        <img src="{%static 'img/categories/reklam4.webp'%}" alt="" class="rounded-md w-full">
+        <img src="{%static 'img/categories/reklam5.webp'%}" alt="" class="rounded-md w-full">
+        <img src="{%static 'img/categories/reklam6.webp'%}" alt="" class="rounded-md w-full">
+        <img src="{%static 'img/categories/reklam7.webp'%}" alt="" class="rounded-md w-full">
+        <img src="{%static 'img/categories/reklam8.webp'%}" alt="" class="rounded-md w-full">
+        <img src="{%static 'img/categories/reklam9.webp'%}" alt="" class="rounded-md w-full">
+      </div>
+    </section>
+    <section class="mt-5 border-b-1 border-gray-300 pb-3">
+      <h2 class="text-lg md:text-xl font-bold">Bunlar da İlginizi Çekebilir</h2>
+      <div class="">
+        <div
+          class="flex gap-2 mt-5 flex-wrap [&>div]:rounded-xl [&>div]:px-3 [&>div]:py-1 [&>div]:border-1 [&>div]:border-gray-300 [&>div]:text-sm [&>div]:md:text-base">
+          <div class="landings"><a title="iPhone 17"
+              href="https://www.DjangoYol.com/iphone-17-cep-telefonu-x-c103498-a292-v10632549">iPhone 17</a></div>
+          <div class="landings"><a title="iPhone 17 Air"
+              href="https://www.DjangoYol.com/iphone-17-air-cep-telefonu-x-c103498-a292-v10632550">iPhone 17 Air</a>
+          </div>
+          <div class="landings"><a title="iPhone 17 Pro"
+              href="https://www.DjangoYol.com/iphone-17-pro-cep-telefonu-x-c103498-a292-v10632551">iPhone 17 Pro</a>
+          </div>
+          <div class="landings"><a title="iPhone 17 Pro Max"
+              href="https://www.DjangoYol.com/iphone-17-pro-max-cep-telefonu-x-c103498-a292-v10632552">iPhone 17 Pro
+              Max</a>
+          </div>
+          <div class="landings"><a title="iPhone 16 Cep Telefonu"
+              href="https://www.DjangoYol.com/iphone-16-cep-telefonu-x-c103498-a292-v10577547">iPhone 16 Cep
+              Telefonu</a>
+          </div>
+          <div class="landings"><a title="iPhone 16 Plus"
+              href="https://www.DjangoYol.com/iphone-16-plus-cep-telefonu-x-c103498-a292-v10591876">iPhone 16 Plus</a>
+          </div>
+          <div class="landings"><a title="iPhone 16 Pro"
+              href="https://www.DjangoYol.com/iphone-16-pro-cep-telefonu-x-c103498-a292-v10577551">iPhone 16 Pro</a>
+          </div>
+          <div class="landings"><a title="iPhone 16 Pro Max"
+              href="https://www.DjangoYol.com/apple/iphone-16-pro-max-256gb-siyah-titanyum-p-857296077">iPhone 16 Pro
+              Max</a>
+          </div>
+          <div class="landings"><a title="iPhone 16e"
+              href="https://www.DjangoYol.com/apple/iphone-16e-128gb-siyah-p-900754126">iPhone 16e</a></div>
+          <div class="landings"><a title="iPhone 13"
+              href="https://www.DjangoYol.com/iphone-13-cep-telefonu-x-c103498-a292-v613184">iPhone 13</a></div>
+          <div class="landings"><a title="iPhone 13 Mini"
+              href="https://www.DjangoYol.com/iphone-13-mini-cep-telefonu-x-c103498-a292-v613188">iPhone 13 Mini</a>
+          </div>
+          <div class="landings"><a title="iPhone 13 Pro"
+              href="https://www.DjangoYol.com/iphone-13-pro-cep-telefonu-x-c103498-a292-v613190">iPhone 13 Pro</a></div>
+          <div class="landings"><a title="iPhone 13 Pro Max"
+              href="https://www.DjangoYol.com/iphone-13-pro-max-cep-telefonu-x-c103498-a292-v613194">iPhone 13 Pro
+              Max</a>
+          </div>
+          <div class="landings"><a title="iPhone 14"
+              href="https://www.DjangoYol.com/iphone-14-cep-telefonu-x-c103498-a292-v1195053">iPhone 14</a></div>
+          <div class="landings"><a title="iPhone 14 Plus"
+              href="https://www.DjangoYol.com/iphone-14-plus-cep-telefonu-x-c103498-a292-v1195068">iPhone 14 Plus</a>
+          </div>
+          <div class="landings"><a title="iPhone 14 Pro"
+              href="https://www.DjangoYol.com/iphone-14-pro-cep-telefonu-x-c103498-a292-v1195066">iPhone 14 Pro</a>
+          </div>
+          <div class="landings"><a title="iPhone 14 Pro Max"
+              href="https://www.DjangoYol.com/iphone-14-pro-max-cep-telefonu-x-c103498-a292-v1195067">iPhone 14 Pro
+              Max</a>
+          </div>
+          <div class="landings"><a title="iPhone 15"
+              href="https://www.DjangoYol.com/iphone-15-cep-telefonu-x-c103498-a292-v1218519">iPhone 15</a></div>
+          <div class="landings"><a title="iPhone 15 Plus"
+              href="https://www.DjangoYol.com/iphone-15-plus-cep-telefonu-x-c103498-a292-v1218521">iPhone 15 Plus</a>
+          </div>
+          <div class="landings"><a title="iPhone 15 Pro"
+              href="https://www.DjangoYol.com/iphone-15-pro-cep-telefonu-x-c103498-a292-v1218520">iPhone 15 Pro</a>
+          </div>
+          <div class="landings"><a title="iPhone 15 Pro Max"
+              href="https://www.DjangoYol.com/iphone-15-pro-max-cep-telefonu-x-c103498-a292-v1218522">iPhone 15 Pro
+              Max</a>
+          </div>
+          <div class="landings"><a title="Decathlon" href="https://www.DjangoYol.com/decathlon-x-b150625">Decathlon</a>
+          </div>
+          <div class="landings"><a title="IKEA" href="https://www.DjangoYol.com/ikea-x-b108268">IKEA</a></div>
+          <div class="landings"><a title="UGG" href="https://www.DjangoYol.com/ugg-x-b142603">UGG</a></div>
+          <div class="landings"><a title="Playstation 5"
+              href="https://www.DjangoYol.com/playstation-5-x-c144046">Playstation
+              5</a></div>
+          <div class="landings"><a title="Adidas Samba" href="https://www.DjangoYol.com/adidas-samba-y-s10410">Adidas
+              Samba</a>
+          </div>
+          <div class="landings"><a title="Makyaj Seti" href="https://www.DjangoYol.com/makyaj-seti-x-c104019">Makyaj
+              Seti</a>
+          </div>
+          <div class="landings"><a title="Bargello" href="https://www.DjangoYol.com/bargello-x-b109919">Bargello</a>
+          </div>
+          <div class="landings"><a title="Cep Telefonu" href="https://www.DjangoYol.com/cep-telefonu-x-c103498">Cep
+              Telefonu</a>
+          </div>
+          <div class="landings"><a title="Nike Air Force" href="https://www.DjangoYol.com/nike-air-force-y-s7252">Nike
+              Air
+              Force</a></div>
+        </div>
+      </div>
+    </section>
+    <section class="mt-5 border-b-1 border-gray-300 py-3">
+      <h2 class="text-lg md:text-xl font-bold">Tüm İhtiyaçlarınız İçin Tek İhtiyacınız Django Yol !</h2>
+      <div class="mt-5">
+        <h3 class="text-base md:text-md font-bold">Tüm İhtiyaçlarınız İçin Tek İhtiyacınız DjangoYol!</h3>
+        <p class="text-sm md:text-base">Türkiye'nin önemli online alışveriş adreslerinden biri olan DjangoYol, 2010 yılında modayı herkes için
+          ulaşılabilir
+          kılmak amacıyla kuruldu. Giyimden aksesuara, ayakkabıdan kozmetiğe kadar pek çok ürünle beğeni kazanır. Firma,
+          gelişen
+          pazar hacminde büyük söz sahibi olur. Hem farklı zevklere hem de bütçelere hitap eder. Kolay ve güvenli bir
+          deneyim
+          sunar. Üst ve alt giyim kategorilerinde çeşitli modeller hazırlanır. Bu koleksiyonlar uygun fiyat avantajıyla
+          sunulur.
+          Her mevsime uygun ürün seçenekleri bulunur. Kışlık seçimlerde kazak, mont, hırka, ceket gibi ürünleri
+          baskındır.
+          Yaz
+          kombinlerinde renkli ve sade tişört modelleri sıklıkla kullanılır. İnce kumaştan üretilen jeanlar ve kapriler
+          de
+          yine
+          yaz ayları için ideal bir seçimler olarak değerlendirilir. Yaz tatili için de bikini takımlarından satın
+          alabiliriz.
+          Geniş beden aralığı sayesinde istediğimiz ürünü tercih edebiliriz.</p>
+        <h3 class="text-base md:text-md font-bold">Modern Tasarımlarıyla Dikkat Çeken DjangoYol Markaları</h3>
+        <p class="text-sm md:text-base">Kıyafet kombinleri seçilen ayakkabıyla tamamlanır. Günlük ayakkabı, spor ayakkabı, topuklu ayakkabı,
+          sandalet,
+          bot ve
+          çizme olmak üzere geniş bir ürün skalası hazırlanır. Kıyafet tasarımları ise hedef kitlenin beklentilerine
+          göre
+          şekillendirilir. Elbiseden gömleğe, tunikten eşofman takımına kadar pek çok kategoride üretim yapılır. Sade,
+          modern,
+          kaliteli ve şık tasarımlar ilgiyle takip edilir. Sezonun trend renkleri ve modelleri hazırlanan kreasyonlarda
+          hissedilir. Üretici markalar çocuklar için farklı tasarımlara imza atarlar. Birbirinden rahat, renkli ve
+          eğlenceli
+          modeller hazırlanır. Kız ve erkek çocukları için farklı kategoriler bulunur. Mevcut çeşitlilik beklentilerin
+          karşılanması noktasında önemlidir. Giyim markaları arasından kendiniz veya çocuğunuz için ideal ürünleri
+          seçebilirsiniz.</p>
+        <h3 class="text-base md:text-md font-bold">DjangoYol Özel Gün İndirimleriyle Kaçırılmayacak Fırsatlar</h3>
+        <p class="text-sm md:text-base">Toplumdaki sosyal bilincin oluşmasına katkı sağlayan DjangoYol, Sepette İyilik uygulamasıyla farklı
+          kategorilerde
+          faaliyet gösteren sivil toplum kuruluşlarına ait ürünlerin satışını yapar. Böylece yardım zinciri oluşturulur.
+          Yapılan
+          tüm alışverişlerde avantaj elde etmek için ise devreye DjangoYol Elite fırsatı girer. Özel hizmet ve
+          ayrıcalıklar
+          ilgi
+          çekici bulunur. Bu ayrıcalıkları kullanarak mutfak alışverişinizi DjangoYol Hızlı Market ile yapabilirsiniz.
+          Temel
+          gıdadan atıştırmalıklara, sebzeden meyveye pek çok kategoride istediğiniz ürünleri hızlı market ile
+          bulabilirsiniz.
+          Evden çıkmadan yapacağınız mutfak alışverişi yanında DjangoYol Yemek ile de akşam yemeklerinizi pratik şekilde
+          halledebilirsiniz. Yoğun iş temposunda yapamadığınız akşam yemeklerini bu uygulama sayesinde dert etmenize
+          gerek
+          kalmaz.
+          DjangoYol tarafından düzenlenen indirimler sayesinde alışveriş fırsatlarını değerlendirmek mümkündür.</p>
+        <h3 class="text-base md:text-md font-bold">Modaya Uygun Trend Parçalar</h3>
+        <p class="text-sm md:text-base">Ev yaşam ürünlerinde, giyimde, kozmetikte, elektronikte, oyuncu ekipmanlarında, pratik mutfak eşyalarında,
+          bebek
+          & çocuk
+          ürünlerinde ve süpermarket kategorilerinde yapacağınız alışverişlerde uygun fiyat avantajından
+          yararlanabilirsiniz.
+          Belirli zamanlarda yapılan kampanyalar sayesinde sezonun moda kıyafetlerine ulaşabilir ve evinizin
+          ihtiyaçlarını
+          tamamlayabilirsiniz. Yaz tatilinin bitmesiyle başlayan okul telaşı DjangoYol ile sorun olmaktan çıkar. Okul
+          öncesi,
+          ilkokul, ortaokul, lise, üniversite olarak kategorilere ayrılan kırtasiye ürünleri ihtiyaçların karşılanması
+          için
+          listelenir. Aynı zamanda mevsim geçişlerinde yapılan alışverişler için de çeşitli fırsatlar oluşturulur.
+          Mevcut
+          fırsatlar sayesinde hazırlık yapabilir, eksiklerinizi tamamlayabilirsiniz. Yapılan indirimlerde yer alan ürün
+          çeşitliliği oldukça fazladır. Gram altın seçeneklerine dahi ulaşmak mümkündür. Hediye veya yatırım amaçlı
+          üretilen
+          çeşitler mevcuttur. Çeyrek altın sık tercih edilen ürünlerin başında gelir.</p>
+      </div>
+    </section>
+    <section class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
+        <h3 class="text-lg md:text-xl font-bold">Popüler Marka Ve Mağazalar</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 py-2 mt-5 gap-2 [&>a]:text-sm [&>a]:md:text-base">
+          <a href="#">Penti</a>
+          <a href="#">Mango</a>
+          <a href="#">Vivense</a>
+          <a href="#">Watsons</a>
+          <a href="#">English Home</a>
+          <a href="#">Bershka</a>
+          <a href="#">Stradivarius</a>
+          <a href="#">The North Face</a>
+          <a href="#">Beymen</a>
+          <a href="#">Columbia</a>
+          <a href="#">Samsung</a>
+          <a href="#">Lumberjack</a>
+          <a href="#">Puma</a>
+          <a href="#">Mudo</a>
+          <a href="#">Dermod</a>
+          <a href="#">Apple</a>
+          <a href="#">New Balance</a>
+          <a href="#">Huawei</a>
+          <a href="#">Xiaomi</a>
+          <a href="#">Oppo</a>
+          <a href="#">Monster Notebook</a>
+          <a href="#">Birkenstock</a>
+          <a href="#">Arçelik</a>
+          <a href="#">DYSON</a>
+          <a href="#">Adidas</a>
+          <a href="#">Nike</a>
+          <a href="#">Skechers</a>
+          <a href="#">Lacoste</a>
+          <a href="#">Avva</a>
+          <a href="#">Under Armour</a>
+          <a href="#">Madame Coco</a>
+          <a href="#">Pull & Bear</a>
+          <a href="#">Koton</a>
+          <a href="#">Defacto</a>
+          <a href="#">Mavi</a>
+          <a href="#">Pierre Cardin</a>
+          <a href="#">Tchibo</a>
+          <a href="#">Farmasi</a>
+          <a href="#">Helly Hansen</a>
+          <a href="#">Network</a>
+          <a href="#">Bosch</a>
+          <a href="#">Karaca</a>
+          <a href="#">Kiğılı</a>
+          <a href="#">Migros</a>
+          <a href="#">CAT</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-lg md:text-xl font-bold">Popüler Sayfalar</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 mt-5 gap-2 [&>a]:text-sm [&>a]:md:text-base">
+          <a href="#">Bluetooth Kulaklık</a>
+          <a href="#">Azerbaycan'dan Alışveriş</a>
+          <a href="#">Laptop</a>
+          <a href="#">iPhone 15 Plus</a>
+          <a href="#">Apple Watch</a>
+          <a href="#">iPhone 16 Pro Max</a>
+          <a href="#">iPhone 16</a>
+          <a href="#">Televizyon</a>
+          <a href="#">Macbook</a>
+          <a href="#">Popüler Sayfalar</a>
+          <a href="#">DjangoYol Blog</a>
+          <a href="#">iPhone 17 Air</a>
+          <a href="#">Samsung Galaxy S25</a>
+          <a href="#">Samsung Galaxy Z Fold 7</a>
+          <a href="#">DjangoYol Arabic</a>
+          <a href="#">iPhone</a>
+          <a href="#">Nike Air Max</a>
+          <a href="#">iPhone 15</a>
+          <a href="#">iPhone 15 Pro</a>
+          <a href="#">Bulaşık Makinesi</a>
+          <a href="#">iPhone 16 Pro</a>
+          <a href="#">DjangoYol Greece</a>
+          <a href="#">Kahve Makinesi</a>
+          <a href="#">Elbise</a>
+          <a href="#">Dyson Airwrap</a>
+          <a href="#">Markalar</a>
+          <a href="#">iPhone 17 Pro</a>
+          <a href="#">Samsung Galaxy S25 Ultra</a>
+          <a href="#">DjangoYol Romanian</a>
+          <a href="#">Orijinallik Takip Sistemi</a>
+          <a href="#">Samsung Cep Telefonu</a>
+          <a href="#">Robot Süpürge</a>
+          <a href="#">Soba & Isıtıcı</a>
+          <a href="#">iPhone 15 Pro Max</a>
+          <a href="#">Buzdolabı</a>
+          <a href="#">iPhone 16 Plus</a>
+          <a href="#">Apple Watch Series 9</a>
+          <a href="#">Sneaker</a>
+          <a href="#">Popüler Aramalar</a>
+          <a href="#">Apple Airpods</a>
+          <a href="#">iPhone 17</a>
+          <a href="#">iPhone 17 Pro Max</a>
+          <a href="#">Samsung Galaxy Z Flip 7</a>
+          <a href="#">DjangoYol English</a>
+          <a href="#">Alibaba.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</main>
 
 {%endblock%}

@@ -4,18 +4,446 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@r3dz0n3/fontawesome-pro@6.3.0/css/fontawesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@r3dz0n3/fontawesome-pro@6.3.0/js/fontawesome.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme{
+      --color-clifford:#da373d;
+      --color-customgray:#f3f3f3;
+      --color-django:#083b2a;
+      --color-body:#fafafa;
+    }
+  </style>
 </head>
 <body>
-  {%include 'navbar.html'%}
-  <main class="container-md py-5">
-      {%block icerik%}
+  {% load static %}
+  <img src="{% static 'img/banner.gif' %}" alt="banner" width="100%">
+  <header class="max-w-7xl mx-auto py-2 px-4">
+    <div class="hidden md:flex justify-end gap-5 text-xs text-gray-500">
+      <a href="#">İndirim Kuponlarım</a>
+      <a href="#">Trendyol'da Satış Yap</a>
+      <a href="#">Hakkımızda</a>
+      <a href="#">Yardım & Destek</a>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-center my-5 text-sm gap-3">
+      <h1 class="text-2xl md:text-3xl font-bold">Django Yol</h1>
+      <div class="flex items-center gap-2 focus:border-green-500 border-gray-500 w-full md:w-120 bg-customgray px-2 py-2 rounded-md">
+        <input type="text"  placeholder="Aradığınız ürün,kategori veya markayı yazınız" class="outline-none flex-1 bg-transparent">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="forestgreen"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
+            <path d="m21 21-4.34-4.34" />
+            <circle cx="11" cy="11" r="8" />
+          </svg>
+        </span>
+      </div>
+      <div class="flex justify-between items-center gap-2 md:gap-5">
+        {% if user.is_authenticated %}
+        <div class="relative">
+          <button id="userMenuButton" class="items-center flex gap-1 md:gap-2 hover:text-green-500 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-user-round-icon lucide-user-round">
+              <circle cx="12" cy="8" r="5" />
+              <path d="M20 21a8 8 0 0 0-16 0" />
+            </svg>
+            <span class="hidden sm:inline">{{ user.username }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
 
-      {%endblock icerik%}
+          <div id="userDropdown" class="hidden absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-50 py-2">
+            <div class="px-4 py-3 border-b border-gray-200">
+              <p class="text-sm font-semibold text-gray-900">{{ user.username }}</p>
+              <p class="text-xs text-gray-500">{{ user.email }}</p>
+            </div>
+            <ul class="py-2">
+              <li>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  Hesabım
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                  Siparişlerim
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+                  </svg>
+                  Favorilerim
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+                  </svg>
+                  Sepetim
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                  Ayarlar
+                </a>
+              </li>
+            </ul>
+            <div class="border-t border-gray-200 pt-2">
+              <a href="{%url 'logout'%}" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Çıkış Yap
+              </a>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <a class="items-center flex gap-1 md:gap-2" href="{%url 'login'%}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-user-round-icon lucide-user-round">
+            <circle cx="12" cy="8" r="5" />
+            <path d="M20 21a8 8 0 0 0-16 0" />
+          </svg>
+          <span class="hidden sm:inline">Giriş Yap</span>
+        </a>
+        {% endif %}
+        <a class="flex items-center gap-1 md:gap-2" href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-icon lucide-heart">
+            <path
+              d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+          </svg>
+          <span class="hidden sm:inline">Favorilerim</span></a>
+        <a class="flex items-center gap-1 md:gap-2" href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-baggage-claim-icon lucide-baggage-claim">
+            <path d="M22 18H6a2 2 0 0 1-2-2V7a2 2 0 0 0-2-2" />
+            <path d="M17 14V4a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v10" />
+            <rect width="13" height="8" x="8" y="6" rx="1" />
+            <circle cx="18" cy="20" r="2" />
+            <circle cx="9" cy="20" r="2" />
+          </svg>
+          <span class="hidden sm:inline">Sepetim</span></a>
+      </div>
+    </div>
+  </header>
+  <nav class="border-b-1 border-gray-300 py-2 overflow-x-auto">
+    <div class="max-w-7xl mx-auto flex [&>a]:hover:text-green-500 justify-between font-bold text-sm px-4 gap-4 md:gap-2 [&>a]:whitespace-nowrap">
+      <a id="categoryButton" class="flex items-center gap-2 cursor-pointer" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu">
+        <path d="M4 5h16" />
+        <path d="M4 12h16" />
+        <path d="M4 19h16" />
+      </svg><span class="hidden lg:inline">TÜM KATEGORİLER</span></a>
+      <a href="#" class="hidden md:inline-block">Kadın</a>
+      <a href="#" class="hidden md:inline-block">Erkek</a>
+      <a href="#" class="hidden md:inline-block">Anne & Çocuk</a>
+      <a href="#" class="hidden md:inline-block">Ev & Yaşam</a>
+      <a href="#" class="hidden md:inline-block">Süpermarket</a>
+      <a href="#" class="hidden lg:inline-block">Kozmetik</a>
+      <a href="#" class="hidden lg:inline-block">Ayakkabı & Çanta</a>
+      <a href="#" class="hidden xl:inline-block">Elektronik</a>
+      <a href="#" class="hidden xl:inline-block">Çok Satanlar <span class="text-xs bg-red-500 rounded-xl text-white py-1 px-2">Yeni</span></a>
+      <a href="#" class="hidden xl:inline-block">Flaş Ürünler <span class="text-xs bg-red-500 rounded-xl text-white py-1 px-2">Yeni</span></a>
+    </div>
+  </nav>
+
+  <div id="categoryModal" class="hidden absolute left-0 right-0 bg-white shadow-lg border-t-2 border-green-500 z-50 max-h-[80vh] overflow-y-auto" style="top: 0;">
+    <div class="max-w-7xl mx-auto px-4 py-6">
+      <div class="flex justify-between items-center mb-4 sticky top-0 bg-white pb-2">
+        <h2 class="text-lg md:text-xl font-bold">Tüm Kategoriler</h2>
+        <button id="closeModal" class="text-3xl hover:text-green-500 leading-none">&times;</button>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 pb-4">
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Kadın</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Giyim</a></li>
+            <li><a href="#" class="hover:text-green-500">Ayakkabı</a></li>
+            <li><a href="#" class="hover:text-green-500">Çanta</a></li>
+            <li><a href="#" class="hover:text-green-500">Aksesuar</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Erkek</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Giyim</a></li>
+            <li><a href="#" class="hover:text-green-500">Ayakkabı</a></li>
+            <li><a href="#" class="hover:text-green-500">Çanta</a></li>
+            <li><a href="#" class="hover:text-green-500">Aksesuar</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Anne & Çocuk</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Bebek Giyim</a></li>
+            <li><a href="#" class="hover:text-green-500">Oyuncak</a></li>
+            <li><a href="#" class="hover:text-green-500">Bebek Bakım</a></li>
+            <li><a href="#" class="hover:text-green-500">Hamilelik</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Ev & Yaşam</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Mobilya</a></li>
+            <li><a href="#" class="hover:text-green-500">Dekorasyon</a></li>
+            <li><a href="#" class="hover:text-green-500">Mutfak</a></li>
+            <li><a href="#" class="hover:text-green-500">Banyo</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Elektronik</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Telefon</a></li>
+            <li><a href="#" class="hover:text-green-500">Bilgisayar</a></li>
+            <li><a href="#" class="hover:text-green-500">TV & Ses</a></li>
+            <li><a href="#" class="hover:text-green-500">Kamera</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Spor & Outdoor</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Spor Giyim</a></li>
+            <li><a href="#" class="hover:text-green-500">Fitness</a></li>
+            <li><a href="#" class="hover:text-green-500">Kamp</a></li>
+            <li><a href="#" class="hover:text-green-500">Bisiklet</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Kozmetik</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Makyaj</a></li>
+            <li><a href="#" class="hover:text-green-500">Cilt Bakım</a></li>
+            <li><a href="#" class="hover:text-green-500">Parfüm</a></li>
+            <li><a href="#" class="hover:text-green-500">Saç Bakım</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Süpermarket</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Gıda</a></li>
+            <li><a href="#" class="hover:text-green-500">İçecek</a></li>
+            <li><a href="#" class="hover:text-green-500">Temizlik</a></li>
+            <li><a href="#" class="hover:text-green-500">Kişisel Bakım</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Kitap & Hobi</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Kitap</a></li>
+            <li><a href="#" class="hover:text-green-500">Müzik</a></li>
+            <li><a href="#" class="hover:text-green-500">Film</a></li>
+            <li><a href="#" class="hover:text-green-500">Oyun</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Otomotiv</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Oto Aksesuar</a></li>
+            <li><a href="#" class="hover:text-green-500">Yedek Parça</a></li>
+            <li><a href="#" class="hover:text-green-500">Bakım</a></li>
+            <li><a href="#" class="hover:text-green-500">Motosiklet</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Petshop</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Köpek</a></li>
+            <li><a href="#" class="hover:text-green-500">Kedi</a></li>
+            <li><a href="#" class="hover:text-green-500">Kuş</a></li>
+            <li><a href="#" class="hover:text-green-500">Balık</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">Saat & Aksesuar</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a href="#" class="hover:text-green-500">Kol Saati</a></li>
+            <li><a href="#" class="hover:text-green-500">Akıllı Saat</a></li>
+            <li><a href="#" class="hover:text-green-500">Gözlük</a></li>
+            <li><a href="#" class="hover:text-green-500">Takı</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <main>
+  <main>
+    {%block content%}
+    {%endblock%}
   </main>
+ </main>
+  {%include 'footer.html'%}
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script>
+    const categoryModal = document.getElementById('categoryModal');
+    const categoryButton = document.getElementById('categoryButton');
+    const closeModalBtn = document.getElementById('closeModal');
+    const nav = document.querySelector('nav');
+
+    function setModalPosition() {
+      if (nav && categoryModal) {
+        const navRect = nav.getBoundingClientRect();
+        const navBottom = navRect.bottom + window.scrollY;
+        categoryModal.style.top = navBottom + 'px';
+      }
+    }
+
+    function openModal() {
+      if (!categoryModal) return;
+
+      setModalPosition();
+      categoryModal.classList.remove('hidden');
+
+      categoryModal.style.opacity = '0';
+      categoryModal.style.transform = 'translateY(-10px)';
+
+      requestAnimationFrame(() => {
+        categoryModal.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+        categoryModal.style.opacity = '1';
+        categoryModal.style.transform = 'translateY(0)';
+      });
+    }
+
+    function closeModal() {
+      if (!categoryModal) return;
+
+      categoryModal.style.opacity = '0';
+      categoryModal.style.transform = 'translateY(-10px)';
+
+      setTimeout(() => {
+        categoryModal.classList.add('hidden');
+      }, 300);
+    }
+
+    if (categoryButton) {
+      categoryButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (categoryModal.classList.contains('hidden')) {
+          openModal();
+        } else {
+          closeModal();
+        }
+      });
+    }
+
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeModal();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && categoryModal && !categoryModal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!categoryModal || !categoryButton) return;
+
+      if (!categoryModal.classList.contains('hidden') &&
+          !categoryModal.contains(e.target) &&
+          e.target !== categoryButton &&
+          !categoryButton.contains(e.target)) {
+        closeModal();
+      }
+    });
+
+    if (categoryModal) {
+      categoryModal.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      if (categoryModal && !categoryModal.classList.contains('hidden')) {
+        setModalPosition();
+      }
+    });
+
+    window.addEventListener('scroll', () => {
+      if (categoryModal && !categoryModal.classList.contains('hidden')) {
+        setModalPosition();
+      }
+    });
+
+    
+    const userMenuButton = document.getElementById('userMenuButton');
+    const userDropdown = document.getElementById('userDropdown');
+
+    if (userMenuButton && userDropdown) {
+      userMenuButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        userDropdown.classList.toggle('hidden');
+      });
+
+
+      document.addEventListener('click', (e) => {
+        if (!userDropdown.classList.contains('hidden') &&
+            !userDropdown.contains(e.target) &&
+            !userMenuButton.contains(e.target)) {
+          userDropdown.classList.add('hidden');
+        }
+      });
+
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !userDropdown.classList.contains('hidden')) {
+          userDropdown.classList.add('hidden');
+        }
+      });
+
+
+      userDropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+  </script>
 </body>
 </html>

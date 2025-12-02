@@ -126,3 +126,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email Configuration
+# Development için console backend (e-postalar terminalde görünür)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Production için Gmail SMTP kullanmak isterseniz aşağıdaki ayarları aktif edin:
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'huseyint428@gmail.com'  # Gmail adresiniz
+# EMAIL_HOST_PASSWORD = 'pvvd kdus eebn wdzp'  # Gmail uygulama şifreniz
+# DEFAULT_FROM_EMAIL = 'Django Yol <huseyint428@gmail.com>'
+
+# Şifre sıfırlama link geçerlilik süresi (saniye cinsinden, varsayılan 3 gün)
+PASSWORD_RESET_TIMEOUT = 86400  # 24 saat

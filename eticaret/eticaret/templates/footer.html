@@ -1,0 +1,79 @@
+<footer class="bg-customgray py-12">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 px-4">
+    <div class="flex flex-col gap-3 md:gap-5 [&>a]:text-sm [&>a]:md:text-base">
+      <h3 class="text-lg md:text-xl font-bold">Trendyol</h3>
+      <a href="#">Biz kimiz</a>
+      <a href="#">Kariyer</a>
+      <a href="#">Sürdürülebilirlik</a>
+      <a href="#">İletişim</a>
+      <a href="#">Trendyol'da Güvenlik</a>
+    </div>
+    <div class="flex flex-col gap-3 md:gap-5 [&>a]:text-sm [&>a]:md:text-base">
+      <h3 class="text-lg md:text-xl font-bold">Kampanyalar</h3>
+      <a href="#">Kampanyalar</a>
+      <a href="#">Alışveriş Kredisi</a>
+      <a href="#">Elit Üyelik</a>
+      <a href="#">Hediye Fikirleri</a>
+    </div>
+    <div class="flex flex-col gap-3 md:gap-5 [&>a]:text-sm [&>a]:md:text-base">
+      <h3 class="text-lg md:text-xl font-bold">Satıcı</h3>
+      <a href="#">Djangoyol'da Satış Yap</a>
+      <a href="#">Temel Kavramlar</a>
+      <a href="#">Trendyol Akademi</a>
+    </div>
+    <div class="flex flex-col gap-3 md:gap-5 [&>a]:text-sm [&>a]:md:text-base">
+      <h3 class="text-lg md:text-xl font-bold">Yardım</h3>
+      <a href="#">Sıkça Sorular Sorualr</a>
+      <a href="#">Canlı Yardım / Asistan</a>
+      <a href="#">Nasıl İade Edebilirim</a>
+      <a href="#">İşlem Rehberi</a>
+    </div>
+    <div class="flex flex-col gap-3 md:gap-5">
+      <h3 class="text-lg md:text-xl font-bold">Ülke Değiştir</h3>
+      <a href="#" class="bg-white p-2 rounded-md flex items-center gap-2 text-sm md:text-base">
+        <p class="flex-1">Ülke Seç</p> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+          viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-chevron-right-icon lucide-chevron-right">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
+      <h3 class="text-lg md:text-xl font-bold">Sosyal Medya</h3>
+      <div class="flex gap-3">
+        {%load static%}
+        <img src="{%static 'img/icon/facebook.webp'%}" alt="facebook" class="rounded-full w-8 h-8 md:w-10 md:h-10">
+        <img src="{%static 'img/icon/instagram.webp'%}" alt="instagram" class="rounded-full w-8 h-8 md:w-10 md:h-10">
+        <img src="{%static 'img/icon/x.webp'%}" alt="x" class="rounded-full w-8 h-8 md:w-10 md:h-10">
+        <img src="{%static 'img/icon/youtube.webp'%}" alt="youtube" class="rounded-full w-8 h-8 md:w-10 md:h-10">
+      </div>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-5 px-4">
+    <div>
+      <h3 class="text-lg md:text-xl font-bold">Güvenlik Sertifikası</h3>
+      <div class="flex items-center gap-2 mt-3 flex-wrap">
+        <img class="w-16 md:w-20" src="{%static 'img/icon/footer-iso.webp'%}" alt="">
+        <img class="w-16 md:w-20" src="{%static 'img/icon/footer-etbis.webp'%}" alt="">
+        <img class="w-16 md:w-20" src="{%static 'img/icon/footer-pci-dss.webp'%}" alt="">
+        <img class="w-16 md:w-20" src="{%static 'img/icon/footer-trust-stamp.webp'%}" alt="">
+      </div>
+    </div>
+    <div>
+      <h3 class="text-lg md:text-xl font-bold">Güvenlik Alışveriş</h3>
+      <div class="flex items-center gap-2 mt-3 flex-wrap">
+        <img class="w-12 md:w-16" src="{%static 'img/icon/footer-american-express.webp'%}" alt="">
+        <img class="w-12 md:w-16" src="{%static 'img/icon/footer-mastercard.webp'%}" alt="">
+        <img class="w-12 md:w-16" src="{%static 'img/icon/footer-visa.webp'%}" alt="">
+        <img class="w-12 md:w-16" src="{%static 'img/icon/troy.svg'%}" alt="">
+      </div>
+    </div>
+    <div>
+      <h3 class="text-lg md:text-xl font-bold">Mobil Uygulamalar</h3>
+      <div class="flex items-center gap-2 mt-3 flex-wrap">
+        <img class="w-28 md:w-36" src="{%static 'img/icon/footer-google-play.webp'%}" alt="">
+        <img class="w-28 md:w-36" src="{%static 'img/icon/footer-app-store.webp'%}" alt="">
+        <img class="w-28 md:w-36" src="{%static 'img/icon/footer-app-gallery.webp'%}" alt="">
+      </div>
+    </div>
+
+  </div>
+</footer>

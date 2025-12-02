@@ -1,48 +1,138 @@
-{%extends 'base.html'%}
+<div id="register" class="hidden">
+  <form method="post" action="{%url 'register'%}" class="space-y-4">
+    {%csrf_token%}
 
-
-{%block icerik%}
-<div class="card">
-  <div class="card-header">
-  <h5 class="card-title">Kayıt Ol</h5>
-  </div>
-  <div class="card-body">
-    {%if messages%}
-      {%for message in messages%}
-        <div class="alert alert-warning">
-          {{message}}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="group">
+        <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">Adınız</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 group-focus-within:text-green-500 transition-colors">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <input type="text"
+            class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg outline-none text-sm transition-all duration-300 focus:border-green-500 focus:ring-4 focus:ring-green-100"
+            name="first_name" id="firstName" placeholder="Adınız" required>
         </div>
-      {%endfor%}
-    {%endif%}
-    <form method="POST">
-      {%csrf_token%}
-      <div class="mb-3">
-        <label for="first_name" class="form-label">Adınız</label>
-        <input type="text" class="form-control" name="first_name" id="first_name">
-      </div>
-      <div class="mb-3">
-        <label for="last_name" class="form-label">Soyadınız</label>
-        <input type="text" class="form-control" name="last_name" id="last_name">
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" name="email" id="email">
-      </div>
-      <div class="mb-3">
-        <label for="username" class="form-label">Kullanıcı Adı</label>
-        <input type="text" class="form-control" name="username" id="username">
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Şifre</label>
-        <input type="password" class="form-control" name="password" id="password">
-      </div>
-      <div class="mb-3">
-        <label for="confirm_password" class="form-label">Şifre Tekrar</label>
-        <input type="password" class="form-control" name="confirm_password" id="confirm_password">
       </div>
 
-      <button type="submit" class="btn btn-warning">Kayıt Ol</button>
-    </form>
+      <div class="group">
+        <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Soyadınız</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 group-focus-within:text-green-500 transition-colors">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <input type="text"
+            class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg outline-none text-sm transition-all duration-300 focus:border-green-500 focus:ring-4 focus:ring-green-100"
+            name="last_name" id="lastName" placeholder="Soyadınız" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <label for="registerUsername" class="block text-sm font-medium text-gray-700 mb-2">Kullanıcı Adı</label>
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 group-focus-within:text-green-500 transition-colors">
+            <circle cx="12" cy="8" r="5"/>
+            <path d="M20 21a8 8 0 0 0-16 0"/>
+          </svg>
+        </div>
+        <input type="text"
+          class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg outline-none text-sm transition-all duration-300 focus:border-green-500 focus:ring-4 focus:ring-green-100"
+          name="username" id="registerUsername" placeholder="Kullanıcı adınızı seçiniz" required>
+      </div>
+    </div>
+
+    <div class="group">
+      <label for="registerEmail" class="block text-sm font-medium text-gray-700 mb-2">E-Posta</label>
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 group-focus-within:text-green-500 transition-colors">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m2 7 10 7 10-7"/>
+          </svg>
+        </div>
+        <input type="email"
+          class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg outline-none text-sm transition-all duration-300 focus:border-green-500 focus:ring-4 focus:ring-green-100"
+          name="email" id="registerEmail" placeholder="ornek@email.com" required>
+      </div>
+    </div>
+
+    <div class="group">
+      <label for="registerPassword" class="block text-sm font-medium text-gray-700 mb-2">Şifre</label>
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 group-focus-within:text-green-500 transition-colors">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <input type="password"
+          class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg outline-none text-sm transition-all duration-300 focus:border-green-500 focus:ring-4 focus:ring-green-100"
+          name="password" id="registerPassword" placeholder="En az 8 karakter" required>
+      </div>
+      <p class="text-xs text-gray-500 mt-1">Şifreniz en az 8 karakter içermelidir</p>
+    </div>
+
+    <div class="group">
+      <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">Şifre Tekrar</label>
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 group-focus-within:text-green-500 transition-colors">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <input type="password"
+          class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg outline-none text-sm transition-all duration-300 focus:border-green-500 focus:ring-4 focus:ring-green-100"
+          name="confirm_password" id="confirmPassword" placeholder="Şifrenizi tekrar giriniz" required>
+      </div>
+    </div>
+
+    <div class="flex items-start">
+      <input type="checkbox" id="terms" required
+        class="w-4 h-4 mt-1 text-green-500 border-gray-300 rounded focus:ring-green-500">
+      <label for="terms" class="ml-2 text-xs text-gray-600">
+        <a href="#" class="text-green-600 hover:text-green-700 font-medium">Kullanım Koşulları</a> ve
+        <a href="#" class="text-green-600 hover:text-green-700 font-medium">Gizlilik Politikası</a>'nı okudum ve kabul ediyorum.
+      </label>
+    </div>
+
+    <div class="flex items-start">
+      <input type="checkbox" id="marketing"
+        class="w-4 h-4 mt-1 text-green-500 border-gray-300 rounded focus:ring-green-500">
+      <label for="marketing" class="ml-2 text-xs text-gray-600">
+        Kampanya ve duyurulardan haberdar olmak istiyorum.
+      </label>
+    </div>
+
+    <button type="submit"
+      class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-3 md:py-4 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm md:text-base">
+      HESAP OLUŞTUR
+    </button>
+  </form>
+
+  <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
+    <p class="text-xs md:text-sm text-gray-600 flex items-start gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500 flex-shrink-0 mt-0.5">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="16" x2="12" y2="12"/>
+        <line x1="12" y1="8" x2="12.01" y2="8"/>
+      </svg>
+      <span>Üyelik olmadan verilen siparişlerle ilgili destek için <strong class="text-gray-800">0212 331 02 00</strong> numaralı hattımızdan bize ulaşabilirsiniz.</span>
+    </p>
   </div>
 </div>
-{%endblock%}
