@@ -137,7 +137,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = 'huseyint428@gmail.com'  # Gmail adresiniz
-# EMAIL_HOST_PASSWORD = 'pvvd kdus eebn wdzp'  # Gmail uygulama şifreniz
+# EMAIL_HOST_PASSWORD = ''  # Gmail uygulama şifreniz
 # DEFAULT_FROM_EMAIL = 'Django Yol <huseyint428@gmail.com>'
 
 # Şifre sıfırlama link geçerlilik süresi (saniye cinsinden, varsayılan 3 gün)
