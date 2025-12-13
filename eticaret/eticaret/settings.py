@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_URL='/media/'
+MEDIA_ROOT=BASE_DIR / 'media'
+
 
 # Application definition
 
@@ -134,12 +137,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
  #Production için Gmail SMTP kullanmak isterseniz aşağıdaki ayarları aktif edin:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'huseyint428@gmail.com'  # Gmail adresiniz
-EMAIL_HOST_PASSWORD = 'bmgr oxgm tiil hrpt'  # Gmail uygulama şifreniz
-DEFAULT_FROM_EMAIL = 'Django Yol <huseyint428@gmail.com>'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'huseyint428@gmail.com'  # Gmail adresiniz
+# EMAIL_HOST_PASSWORD = 'yilr frhh yqle leqx'  # Gmail uygulama şifreniz
+# DEFAULT_FROM_EMAIL = 'Django Yol <huseyint428@gmail.com>'
 
 # Şifre sıfırlama link geçerlilik süresi (saniye cinsinden, varsayılan 3 gün)
 PASSWORD_RESET_TIMEOUT = 86400  # 24 saat
