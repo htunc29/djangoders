@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('',views.home,name="anasayfa"),
     path('accounts/',include('accounts.urls')),
+    path('category/',include('category.urls')),
     path('admin/', admin.site.urls)
 ]
 if settings.DEBUG:

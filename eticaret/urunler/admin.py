@@ -5,11 +5,11 @@ from .models import Tag
 # Register your models here.
 class ProductImageInlineView(admin.TabularInline):
     model=ProductImage
-    extra=2
+    extra=12
 
 
 class ProductView(admin.ModelAdmin):
-    list_display=["title","slug","price","category","description","is_active"]
+    list_display=["title","slug","price","discount_price","discount_percent","fulltitle","category","description","is_active","created_at","updated_at"]
     inlines=[ProductImageInlineView]
 
 

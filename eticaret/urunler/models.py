@@ -32,7 +32,9 @@ class Product(models.Model):
     stock=models.PositiveIntegerField(default=0)
     category=models.ForeignKey(category_model.Category,on_delete=models.PROTECT,related_name="products")
     tags=models.ManyToManyField(Tag)
-
+    
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.title
     def save(self,*args,**kwargs):
@@ -41,6 +43,10 @@ class Product(models.Model):
             link=slugify(self.title)
             self.slug=f"{link}-{unique}"
         super().save(*args,**kwargs)
+    def discount_percent(self):
+        return int((self.price-self.discount_price)*100/self.price)
+    def fulltitle(self):
+        return f"{self.title}-{self.slug}"
 class ProductImage(models.Model):
     image=models.ImageField(upload_to="product_images")
     alt_text=models.CharField(max_length=200)
