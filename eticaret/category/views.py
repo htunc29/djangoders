@@ -1,11 +1,20 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Category
 from django.contrib import messages
+from django.http import HttpResponse,JsonResponse
 from django.utils.text import slugify
-# Create your views here.
+from django.contrib.auth.decorators import permission_required,login_required
+import google.generativeai as genai
 
 
+
+@login_required
+# @permission_required("category.add_category","/accounts/login",False)
 def category_home(request):
+    if not request.user.has_perm("category.add_category"):
+        messages.error(request,"Sen kendini akıllı mı zannettin 😂")
+        return redirect('login')
+
     if request.method=="POST":
         category_name=request.POST.get('category_name')
         file=request.FILES.get('file')
@@ -60,3 +69,11 @@ def category_details(request,id):
     return render(request,"category_detail.html",{
         "category":category
     })
+
+def ask_gemini(request):
+    genai.configure(api_key="buraya_api_key_gelecek")
+    models=genai.GenerativeModel("gemini-2.5-flash")
+    category_list=Category.objects.all()
+    response=models.generate_content(f"Gemini benim kategorilerim:{category_list} bunları incele ve olmayan kategorileri aralarına virgül koyarak bana sadece istediğimi ver gereksiz fazlalık oluşturma")
+    answer=response.text
+    return JsonResponse({"answer":answer})

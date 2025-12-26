@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 from django.contrib import messages
 # Create your views here.
 from django.http import HttpResponse
@@ -34,6 +34,7 @@ def register_view(request):
         if User.objects.filter(username=username).exists():
             messages.warning(request,"Kanka seçtiğin kullanıcı adı baya popüler sanırım başkası almış bile 😄")
             return render(request,"login.html")
+
         user=User.objects.create_user(
             username=username,
             password=password,
@@ -42,6 +43,8 @@ def register_view(request):
             email=email
         )
         user.save()
+        role=Group.objects.filter(name="Satıcılar").first()
+        user.groups.add(role)
         return redirect("login")
     return render(request,"login.html")
 

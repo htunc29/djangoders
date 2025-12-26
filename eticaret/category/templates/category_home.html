@@ -23,14 +23,23 @@
         <p class="text-xl mb-3 font-bold">{{category.category_name}}</p>
         <img src="{{category.category_image.url}}" alt="">
         <div class="flex flex-col gap-3">
+          
+          {%if perms.category.view_category%}
           <a href="{%url 'category_details' category.id%}" class="bg-blue-50 text-blue-700 py-2 px-4 text-center">Gözat</a>
+          {%endif%}
+
+          {%if perms.category.delete_category%}
           <a href="{%url 'category_delete' category.id%}" class="bg-red-50 text-red-700 py-2 px-4 text-center">Sil</a>
+          {%endif%}
+
+          {%if perms.category.change_category%}
           <a href="{%url 'category_update' category.id%}" class="bg-amber-50 text-amber-700 py-2 px-4 text-center">Güncelle</a>
+          {%endif%}
+
         </div>
       </div>
       {%endfor%}
     </div>
   </div>
 </section>
-
 {%endblock%}
