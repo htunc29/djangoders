@@ -118,6 +118,17 @@
 
 21. [get_object_or_404](#️-get_object_or_404-kullanımı)
 
+22. [QuerySet Metodları](#-queryset-metodları-veritabanı-sorguları)
+    - filter(), get(), first()
+    - Filtreleme Örnekleri (__contains, __gt, __lt)
+    - CRUD İşlemleri
+    - exists() Kullanımı
+
+23. [redirect() Fonksiyonu](#-redirect-fonksiyonu-sayfa-yönlendirme)
+    - URL Name ile Yönlendirme
+    - PRG Pattern
+    - redirect vs render
+
 ---
 
 ## 📚 Bu Derste Neler Öğreneceğiz?
@@ -142,6 +153,8 @@
 ✅ Bildirim mesajları (Messages Framework)
 ✅ Dosya ve resim yükleme
 ✅ Static dosya yönetimi
+✅ QuerySet metodları (filter, get, first, exists)
+✅ redirect() ve PRG Pattern
 
 ---
 
@@ -2438,6 +2451,362 @@ def category_details(request, id):
 def category_details(request, id):
     category = get_object_or_404(Category, id=id)
     return render(request, "category_detail.html", {"category": category})
+```
+
+---
+
+## 🔍 QuerySet Metodları (Veritabanı Sorguları)
+
+> 💡 **QuerySet Nedir?** Django ORM'in veritabanından veri çekmek için kullandığı sorgulardır. SQL yazmadan veritabanı işlemleri yapmanızı sağlar.
+
+### 1️⃣ Temel Sorgulama Metodları
+
+```python
+from .models import Category
+
+# Tüm kayıtları getir
+Category.objects.all()
+
+# Tek bir kayıt getir (bulunamazsa hata verir)
+Category.objects.get(id=1)
+
+# Filtreleme yap (birden fazla kayıt dönebilir)
+Category.objects.filter(category_name="Elektronik")
+
+# İlk kaydı getir (bulunamazsa None döner)
+Category.objects.filter(id=5).first()
+
+# Son kaydı getir
+Category.objects.last()
+
+# Kayıt sayısını öğren
+Category.objects.count()
+```
+
+### 2️⃣ filter() vs get() vs first()
+
+| Metod | Bulunamazsa | Birden fazla kayıt | Kullanım |
+|-------|-------------|-------------------|----------|
+| `get()` | **Hata verir** | **Hata verir** | Tek kayıt kesin varsa |
+| `filter()` | Boş QuerySet | Hepsini döner | Birden fazla kayıt olabilirse |
+| `first()` | **None döner** | İlkini döner | Hata istemiyorsan |
+
+### 3️⃣ filter().first() Kullanımı
+
+```python
+def category_details(request, id):
+    # ✅ Güvenli yol - kayıt bulunamazsa None döner
+    category = Category.objects.filter(id=id).first()
+
+    if category is None:
+        # Kayıt bulunamadı, ne yapacağına karar ver
+        messages.error(request, "Kategori bulunamadı")
+        return redirect('category')
+
+    return render(request, "category_detail.html", {
+        "category": category
+    })
+```
+
+### 4️⃣ get() Kullanımı
+
+```python
+def category_details(request, id):
+    try:
+        # ⚠️ Kayıt bulunamazsa DoesNotExist hatası verir
+        category = Category.objects.get(id=id)
+    except Category.DoesNotExist:
+        messages.error(request, "Kategori bulunamadı")
+        return redirect('category')
+
+    return render(request, "category_detail.html", {
+        "category": category
+    })
+```
+
+### 5️⃣ Filtreleme Örnekleri
+
+```python
+# Tam eşleşme
+Category.objects.filter(category_name="Elektronik")
+
+# İçinde geçen (case-sensitive)
+Category.objects.filter(category_name__contains="elek")
+
+# İçinde geçen (case-insensitive)
+Category.objects.filter(category_name__icontains="elek")
+
+# Başlayan
+Category.objects.filter(category_name__startswith="Elekt")
+
+# Biten
+Category.objects.filter(category_name__endswith="ik")
+
+# Büyük/küçük karşılaştırma
+Product.objects.filter(price__gt=100)      # > 100
+Product.objects.filter(price__gte=100)     # >= 100
+Product.objects.filter(price__lt=100)      # < 100
+Product.objects.filter(price__lte=100)     # <= 100
+
+# Aralık
+Product.objects.filter(price__range=(100, 500))
+
+# Liste içinde mi
+Product.objects.filter(id__in=[1, 2, 3, 4])
+
+# NULL kontrolü
+Product.objects.filter(description__isnull=True)
+```
+
+### 6️⃣ Birden Fazla Koşul
+
+```python
+# VE (AND) - virgülle ayır
+Product.objects.filter(is_active=True, price__lt=1000)
+
+# VEYA (OR) - Q objesi kullan
+from django.db.models import Q
+Product.objects.filter(Q(price__lt=100) | Q(is_active=False))
+
+# DEĞİL (NOT) - exclude kullan
+Product.objects.exclude(is_active=False)
+```
+
+### 7️⃣ Sıralama ve Limitleme
+
+```python
+# Artan sıralama
+Category.objects.all().order_by('category_name')
+
+# Azalan sıralama (başına - koy)
+Category.objects.all().order_by('-id')
+
+# Birden fazla sıralama kriteri
+Product.objects.all().order_by('category', '-price')
+
+# İlk 5 kayıt
+Category.objects.all()[:5]
+
+# 5. ile 10. arası kayıtlar
+Category.objects.all()[5:10]
+```
+
+### 8️⃣ CRUD İşlemleri (Oluştur, Oku, Güncelle, Sil)
+
+```python
+# CREATE - Yeni kayıt oluşturma
+category = Category.objects.create(
+    category_name="Elektronik",
+    category_slug="elektronik",
+    category_image=file
+)
+
+# READ - Okuma
+category = Category.objects.get(id=1)
+categories = Category.objects.all()
+
+# UPDATE - Güncelleme
+category = Category.objects.get(id=1)
+category.category_name = "Yeni İsim"
+category.save()
+
+# Toplu güncelleme
+Category.objects.filter(is_active=False).update(is_active=True)
+
+# DELETE - Silme
+category = Category.objects.get(id=1)
+category.delete()
+
+# Toplu silme
+Category.objects.filter(is_active=False).delete()
+```
+
+### 9️⃣ İlişkili Verilere Erişim
+
+```python
+# ForeignKey üzerinden erişim (alt kategoriye git)
+subcategory = SubCategory.objects.get(id=1)
+parent = subcategory.parent_category  # Ana kategoriye eriş
+
+# Tersine erişim (related_name ile)
+category = Category.objects.get(id=1)
+subcategories = category.altkategoriler.all()  # Tüm alt kategoriler
+
+# İlişkili kayıt var mı kontrolü
+if category.products.exists():
+    messages.warning(request, "Bu kategoriye bağlı ürünler var!")
+```
+
+### 🔟 exists() Kullanımı
+
+```python
+def category_delete(request, id):
+    category = get_object_or_404(Category, id=id)
+
+    # Bu kategoriye bağlı ürün var mı kontrol et
+    if category.products.exists():
+        messages.warning(request, "Lütfen önce bağlı ürünleri silin")
+        return redirect('category')
+
+    category.delete()
+    messages.success(request, "Kategori silindi")
+    return redirect('category')
+```
+
+---
+
+## 🔄 redirect() Fonksiyonu (Sayfa Yönlendirme)
+
+> 💡 **redirect Nedir?** Kullanıcıyı başka bir sayfaya yönlendirmek için kullanılır. Form gönderildikten sonra veya işlem tamamlandıktan sonra kullanılır.
+
+### 1️⃣ Temel Kullanım
+
+```python
+from django.shortcuts import redirect
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # 'login' URL name'ine yönlendir
+```
+
+### 2️⃣ redirect() Kullanım Yöntemleri
+
+```python
+# 1. URL Name ile (ÖNERİLEN)
+return redirect('anasayfa')
+return redirect('category')
+return redirect('login')
+
+# 2. URL Path ile
+return redirect('/accounts/login/')
+return redirect('/category/')
+
+# 3. Parametre ile URL Name
+return redirect('category_details', id=5)
+return redirect('urun_detay', urun_id=10, slug='laptop')
+
+# 4. Model objesi ile (get_absolute_url gerekir)
+return redirect(category_obj)
+```
+
+### 3️⃣ Form İşlemlerinde redirect
+
+```python
+def category_home(request):
+    if request.method == "POST":
+        category_name = request.POST.get('category_name')
+
+        # Validasyon hatası - aynı sayfaya yönlendir
+        if category_name == "":
+            messages.warning(request, "Lütfen kategori adını yazınız")
+            return redirect('category')  # 👈 Aynı sayfaya dön
+
+        # Başarılı - kaydet ve yönlendir
+        Category.objects.create(category_name=category_name)
+        messages.success(request, "Kategori eklendi!")
+        return redirect('category')  # 👈 Listeye dön
+
+    # GET isteği - sayfayı göster
+    return render(request, "category_home.html")
+```
+
+### 4️⃣ İzin Kontrolünde redirect
+
+```python
+@login_required
+def category_home(request):
+    # İzin yoksa login sayfasına yönlendir
+    if not request.user.has_perm("category.add_category"):
+        messages.error(request, "Bu sayfaya erişim izniniz yok!")
+        return redirect('login')
+
+    return render(request, "category_home.html")
+```
+
+### 5️⃣ CRUD İşlemlerinde redirect
+
+```python
+# CREATE - Oluşturma sonrası
+def category_create(request):
+    if request.method == "POST":
+        # ... kayıt oluştur
+        messages.success(request, "Kategori oluşturuldu!")
+        return redirect('category')  # Listeye dön
+    return render(request, "category_create.html")
+
+
+# UPDATE - Güncelleme sonrası
+def category_update(request, id):
+    category = get_object_or_404(Category, id=id)
+
+    if request.method == "POST":
+        category.category_name = request.POST.get('category_name')
+        category.save()
+        messages.success(request, "Kategori güncellendi!")
+        return redirect('category')  # Listeye dön
+
+    return render(request, "category_update.html", {"category": category})
+
+
+# DELETE - Silme sonrası
+def category_delete(request, id):
+    category = get_object_or_404(Category, id=id)
+    category.delete()
+    messages.success(request, "Kategori silindi!")
+    return redirect('category')  # Listeye dön
+```
+
+### 6️⃣ redirect vs render Karşılaştırması
+
+| Özellik | `redirect()` | `render()` |
+|---------|--------------|------------|
+| **Ne yapar** | Yeni URL'e yönlendirir | Aynı URL'de template gösterir |
+| **HTTP Kodu** | 302 (Found/Redirect) | 200 (OK) |
+| **URL değişir mi** | Evet | Hayır |
+| **Form tekrar gönderimi** | Engeller (PRG Pattern) | Engellenmez |
+| **Kullanım** | Form işlemi sonrası | Sayfa ilk yüklemede |
+
+### 7️⃣ PRG Pattern (Post-Redirect-Get)
+
+> 💡 Form gönderildikten sonra `redirect` kullanmak, kullanıcı sayfayı yenilediğinde formun tekrar gönderilmesini engeller.
+
+```python
+def category_create(request):
+    if request.method == "POST":
+        # Form işle
+        Category.objects.create(...)
+
+        # ✅ DOĞRU: Redirect kullan - yenileme sorunu olmaz
+        return redirect('category')
+
+        # ❌ YANLIŞ: Render kullan - yenilemede form tekrar gönderilir
+        # return render(request, "success.html")
+
+    return render(request, "category_create.html")
+```
+
+```
+POST İsteği (Form Gönder)
+         │
+         ▼
+┌─────────────────────┐
+│  Form işle, kaydet  │
+└─────────────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  redirect('liste')  │  ← 302 Redirect
+└─────────────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  GET /liste/        │  ← Yeni istek
+└─────────────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  Sayfa göster       │  ← Yenilemede form gönderilmez
+└─────────────────────┘
 ```
 
 ---
