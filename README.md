@@ -129,6 +129,15 @@
     - PRG Pattern
     - redirect vs render
 
+24. [Örnek Sorular](#-örnek-sorular)
+    - Model Oluşturma
+    - ForeignKey İlişkisi
+    - View ve Template
+    - QuerySet Filtreleme
+    - Authentication ve İzinler
+    - CRUD İşlemleri
+    - Admin Paneli
+
 ---
 
 ## 📚 Bu Derste Neler Öğreneceğiz?
@@ -2933,6 +2942,551 @@ path('', views.anasayfa, name='anasayfa')
 
 ### S: base.html'deki stil alt sayfalara gelmiyor?
 **C:** Alt sayfada `{% extends 'base.html' %}` yazdınız mı? Ve bu satır dosyanın en üstünde mi?
+
+---
+
+## 📝 Örnek Sorular
+
+### Soru 1: Model Oluşturma
+
+**Soru:** Aşağıdaki özelliklere sahip bir `Kitap` modeli oluşturun:
+- Kitap adı (maksimum 200 karakter)
+- Yazar adı (maksimum 100 karakter)
+- Fiyat (ondalıklı sayı)
+- Sayfa sayısı (pozitif tam sayı)
+- Yayın tarihi
+- Aktif mi? (varsayılan True)
+- Oluşturulma tarihi (otomatik)
+
+**Cevap:**
+```python
+from django.db import models
+
+class Kitap(models.Model):
+    kitap_adi = models.CharField(max_length=200)
+    yazar_adi = models.CharField(max_length=100)
+    fiyat = models.DecimalField(max_digits=10, decimal_places=2)
+    sayfa_sayisi = models.PositiveIntegerField()
+    yayin_tarihi = models.DateField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.kitap_adi
+```
+
+---
+
+### Soru 2: ForeignKey İlişkisi
+
+**Soru:** `Yorum` modeli oluşturun. Her yorum bir `Kitap` modeline bağlı olsun. Kitap silindiğinde yorumlar da silinsin.
+
+**Cevap:**
+```python
+class Yorum(models.Model):
+    kitap = models.ForeignKey(
+        Kitap,
+        on_delete=models.CASCADE,
+        related_name="yorumlar"
+    )
+    yazar = models.CharField(max_length=100)
+    icerik = models.TextField()
+    puan = models.PositiveIntegerField()
+    tarih = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.kitap.kitap_adi} - {self.yazar}"
+```
+
+---
+
+### Soru 3: View ve Template
+
+**Soru:** Tüm kitapları listeleyen bir view ve template yazın.
+
+**Cevap:**
+
+`views.py`:
+```python
+from django.shortcuts import render
+from .models import Kitap
+
+def kitap_listesi(request):
+    kitaplar = Kitap.objects.filter(is_active=True)
+    return render(request, "kitaplar/liste.html", {
+        "kitaplar": kitaplar
+    })
+```
+
+`liste.html`:
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Kitap Listesi</h1>
+
+{% if kitaplar %}
+    <ul>
+    {% for kitap in kitaplar %}
+        <li>{{ kitap.kitap_adi }} - {{ kitap.yazar_adi }} - {{ kitap.fiyat }} TL</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Henüz kitap bulunmamaktadır.</p>
+{% endif %}
+{% endblock %}
+```
+
+---
+
+### Soru 4: URL Tanımlama
+
+**Soru:** Aşağıdaki URL yapısını oluşturun:
+- `/kitaplar/` → Kitap listesi
+- `/kitaplar/5/` → ID'si 5 olan kitabın detayı
+- `/kitaplar/ekle/` → Yeni kitap ekleme
+
+**Cevap:**
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.kitap_listesi, name='kitap_listesi'),
+    path('<int:kitap_id>/', views.kitap_detay, name='kitap_detay'),
+    path('ekle/', views.kitap_ekle, name='kitap_ekle'),
+]
+```
+
+---
+
+### Soru 5: QuerySet Filtreleme
+
+**Soru:** Aşağıdaki sorguları yazın:
+1. Fiyatı 50 TL'den az olan kitaplar
+2. Adında "Python" geçen kitaplar
+3. 2024 yılında yayınlanan kitaplar
+4. Sayfa sayısı 100 ile 300 arasında olan kitaplar
+
+**Cevap:**
+```python
+# 1. Fiyatı 50 TL'den az
+Kitap.objects.filter(fiyat__lt=50)
+
+# 2. Adında "Python" geçen (büyük/küçük harf duyarsız)
+Kitap.objects.filter(kitap_adi__icontains="Python")
+
+# 3. 2024 yılında yayınlanan
+Kitap.objects.filter(yayin_tarihi__year=2024)
+
+# 4. Sayfa sayısı 100-300 arası
+Kitap.objects.filter(sayfa_sayisi__range=(100, 300))
+```
+
+---
+
+### Soru 6: filter().first() vs get()
+
+**Soru:** Aşağıdaki iki kod arasındaki fark nedir?
+
+```python
+# Kod 1
+kitap = Kitap.objects.get(id=5)
+
+# Kod 2
+kitap = Kitap.objects.filter(id=5).first()
+```
+
+**Cevap:**
+| Özellik | `get()` | `filter().first()` |
+|---------|---------|-------------------|
+| Kayıt bulunamazsa | `DoesNotExist` hatası verir | `None` döner |
+| Birden fazla kayıt | `MultipleObjectsReturned` hatası | İlk kaydı döner |
+| Kullanım | Kayıt kesin varsa | Hata istemiyorsan |
+
+---
+
+### Soru 7: Login View
+
+**Soru:** Kullanıcı giriş view'ı yazın. Başarılı girişte anasayfaya, başarısızda hata mesajı gösterin.
+
+**Cevap:**
+```python
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('anasayfa')
+
+        messages.error(request, "Kullanıcı adı veya şifre hatalı!")
+
+    return render(request, "login.html")
+```
+
+---
+
+### Soru 8: İzin Kontrolü
+
+**Soru:** Sadece `kitap.add_kitap` iznine sahip kullanıcıların erişebildiği bir view yazın.
+
+**Cevap:**
+```python
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.contrib import messages
+
+@login_required
+def kitap_ekle(request):
+    if not request.user.has_perm("kitap.add_kitap"):
+        messages.error(request, "Bu işlem için yetkiniz yok!")
+        return redirect('kitap_listesi')
+
+    # Kitap ekleme işlemleri...
+    return render(request, "kitap_ekle.html")
+```
+
+---
+
+### Soru 9: Template İzin Kontrolü
+
+**Soru:** Template'de sadece silme yetkisi olan kullanıcılara "Sil" butonu gösterin.
+
+**Cevap:**
+```html
+{% for kitap in kitaplar %}
+    <div class="kitap-kart">
+        <h3>{{ kitap.kitap_adi }}</h3>
+        <p>{{ kitap.yazar_adi }}</p>
+
+        {% if perms.kitaplar.delete_kitap %}
+            <a href="{% url 'kitap_sil' kitap.id %}">Sil</a>
+        {% endif %}
+    </div>
+{% endfor %}
+```
+
+---
+
+### Soru 10: redirect vs render
+
+**Soru:** Form gönderildikten sonra neden `redirect` kullanmalıyız?
+
+**Cevap:**
+- `redirect` kullanıldığında **PRG Pattern** (Post-Redirect-Get) uygulanır
+- Kullanıcı sayfayı yenilediğinde form **tekrar gönderilmez**
+- `render` kullanılırsa, yenileme yapıldığında form tekrar gönderilir ve **mükerrer kayıt** oluşabilir
+
+```python
+# ✅ DOĞRU
+def kitap_ekle(request):
+    if request.method == "POST":
+        Kitap.objects.create(...)
+        return redirect('kitap_listesi')  # Yenilemede sorun yok
+    return render(request, "kitap_ekle.html")
+
+# ❌ YANLIŞ
+def kitap_ekle(request):
+    if request.method == "POST":
+        Kitap.objects.create(...)
+        return render(request, "basarili.html")  # Yenilemede tekrar kayıt!
+```
+
+---
+
+### Soru 11: Admin Paneli Özelleştirme
+
+**Soru:** `Kitap` modelini admin panelinde şu özelliklerle gösterin:
+- Liste görünümünde: kitap adı, yazar, fiyat, aktif durumu
+- Arama: kitap adı ve yazar adına göre
+- Filtreleme: aktif durumuna göre
+
+**Cevap:**
+```python
+from django.contrib import admin
+from .models import Kitap
+
+class KitapAdmin(admin.ModelAdmin):
+    list_display = ["kitap_adi", "yazar_adi", "fiyat", "is_active"]
+    search_fields = ["kitap_adi", "yazar_adi"]
+    list_filter = ["is_active"]
+
+admin.site.register(Kitap, KitapAdmin)
+```
+
+---
+
+### Soru 12: Dosya Yükleme
+
+**Soru:** Kitap modeline kapak resmi ekleyin ve form'da dosya yüklemeyi sağlayın.
+
+**Cevap:**
+
+`models.py`:
+```python
+class Kitap(models.Model):
+    kitap_adi = models.CharField(max_length=200)
+    kapak_resmi = models.ImageField(upload_to="kitap_kapaklari/")
+```
+
+`template`:
+```html
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="kitap_adi">
+    <input type="file" name="kapak" accept="image/*">
+    <button type="submit">Kaydet</button>
+</form>
+```
+
+`views.py`:
+```python
+def kitap_ekle(request):
+    if request.method == "POST":
+        kitap_adi = request.POST.get('kitap_adi')
+        kapak = request.FILES.get('kapak')
+
+        Kitap.objects.create(
+            kitap_adi=kitap_adi,
+            kapak_resmi=kapak
+        )
+        return redirect('kitap_listesi')
+```
+
+---
+
+### Soru 13: CRUD - Güncelleme
+
+**Soru:** Kitap güncelleme view'ı yazın.
+
+**Cevap:**
+```python
+from django.shortcuts import render, redirect, get_object_or_404
+
+def kitap_guncelle(request, kitap_id):
+    kitap = get_object_or_404(Kitap, id=kitap_id)
+
+    if request.method == "POST":
+        kitap.kitap_adi = request.POST.get('kitap_adi')
+        kitap.yazar_adi = request.POST.get('yazar_adi')
+        kitap.fiyat = request.POST.get('fiyat')
+        kitap.save()
+
+        messages.success(request, "Kitap güncellendi!")
+        return redirect('kitap_listesi')
+
+    return render(request, "kitap_guncelle.html", {"kitap": kitap})
+```
+
+---
+
+### Soru 14: CRUD - Silme (İlişki Kontrolü)
+
+**Soru:** Kitap silme view'ı yazın. Eğer kitaba bağlı yorum varsa silmeyi engelleyin.
+
+**Cevap:**
+```python
+def kitap_sil(request, kitap_id):
+    kitap = get_object_or_404(Kitap, id=kitap_id)
+
+    # İlişkili kayıt kontrolü
+    if kitap.yorumlar.exists():
+        messages.warning(request, "Bu kitaba ait yorumlar var. Önce yorumları silin!")
+        return redirect('kitap_listesi')
+
+    kitap.delete()
+    messages.success(request, "Kitap silindi!")
+    return redirect('kitap_listesi')
+```
+
+---
+
+### Soru 15: Migration Komutları
+
+**Soru:** Aşağıdaki senaryolarda hangi komutları çalıştırmalısınız?
+
+1. Yeni model eklediniz
+2. Mevcut modele yeni alan eklediniz
+3. Migration dosyalarını veritabanına uygulamak istiyorsunuz
+
+**Cevap:**
+```bash
+# 1 ve 2 için: Önce migration dosyası oluştur
+python manage.py makemigrations
+
+# 3 için: Migration'ları veritabanına uygula
+python manage.py migrate
+
+# Özet: Model değişikliği sonrası her zaman
+python manage.py makemigrations
+python manage.py migrate
+```
+
+---
+
+### Soru 16: Template - Koşullu Gösterim
+
+**Soru:** Kitap fiyatına göre farklı renkler gösterin:
+- 50 TL'den az: Yeşil
+- 50-100 TL arası: Mavi
+- 100 TL'den fazla: Kırmızı
+
+**Cevap:**
+```html
+{% for kitap in kitaplar %}
+    <div class="kitap">
+        <h3>{{ kitap.kitap_adi }}</h3>
+        <p>
+            Fiyat:
+            {% if kitap.fiyat < 50 %}
+                <span style="color: green;">{{ kitap.fiyat }} TL (Uygun)</span>
+            {% elif kitap.fiyat <= 100 %}
+                <span style="color: blue;">{{ kitap.fiyat }} TL (Normal)</span>
+            {% else %}
+                <span style="color: red;">{{ kitap.fiyat }} TL (Pahalı)</span>
+            {% endif %}
+        </p>
+    </div>
+{% endfor %}
+```
+
+---
+
+### Soru 17: Static Dosya Kullanımı
+
+**Soru:** Template'de static klasöründeki `css/style.css` ve `img/logo.png` dosyalarını kullanın.
+
+**Cevap:**
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <img src="{% static 'img/logo.png' %}" alt="Logo">
+</body>
+</html>
+```
+
+---
+
+### Soru 18: URL'de Parametre Alma
+
+**Soru:** `/kitaplar/kategori/roman/` URL'inden `roman` değerini alıp o kategorideki kitapları listeleyin.
+
+**Cevap:**
+
+`urls.py`:
+```python
+path('kategori/<slug:kategori_slug>/', views.kategori_kitaplari, name='kategori_kitaplari')
+```
+
+`views.py`:
+```python
+def kategori_kitaplari(request, kategori_slug):
+    kitaplar = Kitap.objects.filter(kategori__slug=kategori_slug)
+    return render(request, "kategori.html", {
+        "kitaplar": kitaplar,
+        "kategori": kategori_slug
+    })
+```
+
+---
+
+### Soru 19: Messages Framework
+
+**Soru:** Farklı mesaj türlerini gösterin ve template'de renklendir.
+
+**Cevap:**
+
+`views.py`:
+```python
+from django.contrib import messages
+
+def islem_yap(request):
+    messages.success(request, "İşlem başarılı!")
+    messages.error(request, "Bir hata oluştu!")
+    messages.warning(request, "Dikkat!")
+    messages.info(request, "Bilgi mesajı")
+```
+
+`template`:
+```html
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert
+            {% if message.tags == 'success' %}alert-success{% endif %}
+            {% if message.tags == 'error' %}alert-danger{% endif %}
+            {% if message.tags == 'warning' %}alert-warning{% endif %}
+            {% if message.tags == 'info' %}alert-info{% endif %}
+        ">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+```
+
+---
+
+### Soru 20: Include ve Extends
+
+**Soru:** `base.html`, `header.html` ve `sayfa.html` ilişkisini açıklayın.
+
+**Cevap:**
+
+`base.html`:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Site{% endblock %}</title>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
+```
+
+`header.html`:
+```html
+<header>
+    <h1>Site Başlığı</h1>
+    <nav>...</nav>
+</header>
+```
+
+`sayfa.html`:
+```html
+{% extends 'base.html' %}
+
+{% block title %}Sayfa Başlığı{% endblock %}
+
+{% block content %}
+    <h2>Sayfa İçeriği</h2>
+    <p>Burası ana içerik alanı</p>
+{% endblock %}
+```
+
+**Açıklama:**
+- `{% extends %}`: Ana template'i miras alır (kalıtım)
+- `{% include %}`: Başka bir template'i dahil eder (parça ekleme)
+- `{% block %}`: Değiştirilebilir alan tanımlar
 
 ---
 
