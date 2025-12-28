@@ -1,5 +1,7 @@
 # Güncellemeler
-> Django giriş yap ve kayıt ol sayfaları oluşturuldu,kayıt olma ve kullanıcı girişi işlemleri tamamlandı
+> **Son Güncelleme:** README'ye ileri seviye konular eklendi (Model, Migration, Admin, Authentication, Permissions, Messages, Dosya Yükleme)
+
+> Django giriş yap ve kayıt ol sayfaları oluşturuldu, kayıt olma ve kullanıcı girişi işlemleri tamamlandı
 
 # 🐍 Django Kullanıcılar App Dersi
 
@@ -20,6 +22,8 @@
 ---
 
 ## 📑 İçindekiler
+
+### Temel Konular
 
 1. [Proje Başlatma](#-sıfırdan-django-projesi-başlatma)
    - Sanal Ortam Oluşturma
@@ -54,17 +58,71 @@
    - If-Else Koşulları
    - Filtreler
 
-
-9. [Pratik Örnekler](#-pratik-yapalım)
+8. [Pratik Örnekler](#-pratik-yapalım)
    - Ürün Listesi
    - Blog Sistemi
 
-10. [Komutlar & SSS](#-komutlar-cheat-sheet)
+9. [Komutlar & SSS](#-komutlar-cheat-sheet)
+
+### İleri Seviye Konular
+
+10. [Model Oluşturma (Veritabanı)](#️-django-model-oluşturma-veritabanı)
+    - Alan Türleri (CharField, TextField, vb.)
+    - Alan Parametreleri
+    - ForeignKey ve ManyToManyField
+    - Custom Metodlar
+    - save() Override Etme
+
+11. [Migration İşlemleri](#-migration-işlemleri-veritabanı-güncelleme)
+    - makemigrations
+    - migrate
+    - Migration Akışı
+
+12. [Admin Paneli Özelleştirme](#-admin-paneli-özelleştirme)
+    - Süper Kullanıcı Oluşturma
+    - list_display, search_fields
+    - Inline (TabularInline)
+
+13. [Kullanıcı Kimlik Doğrulama](#-kullanıcı-kimlik-doğrulama-authentication)
+    - Login, Logout, Register
+    - authenticate() ve login()
+    - User Modeli
+
+14. [Şifre Sıfırlama](#-şifre-sıfırlama-password-reset)
+    - PasswordResetView
+    - E-posta Ayarları
+    - Template Şablonları
+
+15. [İzin Sistemi](#️-izin-sistemi-permissions)
+    - @login_required
+    - @permission_required
+    - Template'de İzin Kontrolü
+
+16. [Messages Framework](#-messages-framework-bildirim-mesajları)
+    - Mesaj Türleri
+    - Template'de Gösterme
+
+17. [Dosya Yükleme](#-dosya-yükleme-file-upload)
+    - ImageField, FileField
+    - MEDIA Ayarları
+    - enctype="multipart/form-data"
+
+18. [Static Dosyalar](#-static-dosyalar-css-js-resimler)
+    - {% load static %}
+    - Klasör Yapısı
+
+19. [Include Template Tag](#-include-template-tag)
+    - with Parametresi
+
+20. [Dil ve Zaman Dilimi](#-dil-ve-zaman-dilimi-ayarları)
+
+21. [get_object_or_404](#️-get_object_or_404-kullanımı)
 
 ---
 
 ## 📚 Bu Derste Neler Öğreneceğiz?
 
+### Temel Seviye
 ✅ Django projesi başlatma (startproject)
 ✅ Sanal ortam oluşturma ve yönetme
 ✅ Yeni bir Django app oluşturma
@@ -73,6 +131,17 @@
 ✅ Listelerle çalışma (for döngüsü)
 ✅ Koşullu durumlar (if-else)
 ✅ Sayfa linkleri oluşturma
+
+### İleri Seviye
+✅ Model oluşturma ve veritabanı tasarımı
+✅ Migration işlemleri (makemigrations, migrate)
+✅ Admin paneli özelleştirme
+✅ Kullanıcı giriş/çıkış/kayıt (Authentication)
+✅ Şifre sıfırlama sistemi
+✅ İzin ve yetkilendirme sistemi (Permissions)
+✅ Bildirim mesajları (Messages Framework)
+✅ Dosya ve resim yükleme
+✅ Static dosya yönetimi
 
 ---
 
@@ -1343,6 +1412,1093 @@ python manage.py help
 - 🎥 [Django Template Dili](https://docs.djangoproject.com/en/stable/ref/templates/language/)
 - 🔧 [Built-in Template Tags](https://docs.djangoproject.com/en/stable/ref/templates/builtins/)
 - 💡 [Django Girls Tutorial (Türkçe)](https://tutorial.djangogirls.org/tr/)
+
+---
+
+## 🗄️ Django Model Oluşturma (Veritabanı)
+
+> 💡 **Model Nedir?** Model, veritabanındaki tabloların Python sınıfları olarak temsil edilmesidir. Her model bir veritabanı tablosuna karşılık gelir.
+
+### 📦 Temel Model Oluşturma
+
+`urunler/models.py` dosyasını açın:
+
+```python
+from django.db import models
+
+class Product(models.Model):
+    title = models.CharField(max_length=200)           # Kısa metin
+    description = models.TextField(max_length=500)     # Uzun metin
+    price = models.DecimalField(max_digits=10, decimal_places=2)  # Fiyat
+    stock = models.PositiveIntegerField(default=0)     # Stok (pozitif sayı)
+    is_active = models.BooleanField(default=True)      # Aktif mi?
+
+    def __str__(self):
+        return self.title  # Admin panelinde görünecek isim
+```
+
+> 💡 **`__str__` Metodu**: Admin panelinde ve Python shell'de nesneyi gösterirken kullanılır.
+
+---
+
+### 🔧 Alan Türleri (Field Types)
+
+| Alan Türü | Açıklama | Örnek Kullanım |
+|-----------|----------|----------------|
+| `CharField` | Kısa metin (max_length zorunlu) | `title = models.CharField(max_length=200)` |
+| `TextField` | Uzun metin | `description = models.TextField()` |
+| `IntegerField` | Tam sayı | `quantity = models.IntegerField()` |
+| `PositiveIntegerField` | Pozitif tam sayı | `stock = models.PositiveIntegerField()` |
+| `DecimalField` | Ondalıklı sayı (fiyat için) | `price = models.DecimalField(max_digits=10, decimal_places=2)` |
+| `FloatField` | Ondalıklı sayı | `rating = models.FloatField()` |
+| `BooleanField` | True/False değeri | `is_active = models.BooleanField(default=True)` |
+| `DateField` | Tarih | `birth_date = models.DateField()` |
+| `DateTimeField` | Tarih ve saat | `created_at = models.DateTimeField()` |
+| `EmailField` | E-posta adresi | `email = models.EmailField()` |
+| `URLField` | URL adresi | `website = models.URLField()` |
+| `SlugField` | URL-dostu metin | `slug = models.SlugField(unique=True)` |
+| `ImageField` | Resim dosyası | `image = models.ImageField(upload_to="images/")` |
+| `FileField` | Herhangi dosya | `document = models.FileField(upload_to="docs/")` |
+
+---
+
+### 📌 Alan Parametreleri
+
+```python
+class Product(models.Model):
+    # Zorunlu alan
+    title = models.CharField(max_length=200)
+
+    # Boş bırakılabilir (veritabanında NULL)
+    description = models.TextField(blank=True, null=True)
+
+    # Varsayılan değer
+    is_active = models.BooleanField(default=True)
+
+    # Benzersiz (unique) değer
+    slug = models.SlugField(unique=True)
+
+    # Otomatik tarih ekleme (kayıt oluşturulduğunda)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    # Otomatik güncelleme tarihi (her kaydetmede)
+    updated_at = models.DateTimeField(auto_now=True)
+```
+
+| Parametre | Açıklama |
+|-----------|----------|
+| `max_length` | Maksimum karakter sayısı (CharField için zorunlu) |
+| `blank=True` | Form'da boş bırakılabilir |
+| `null=True` | Veritabanında NULL olabilir |
+| `default` | Varsayılan değer |
+| `unique=True` | Benzersiz olmalı |
+| `auto_now_add=True` | Kayıt oluşturulduğunda otomatik tarih |
+| `auto_now=True` | Her güncellemede otomatik tarih |
+
+---
+
+### 🔗 İlişkiler (Relationships)
+
+#### 1️⃣ ForeignKey (Bire-Çok İlişki)
+
+Bir kategori birçok ürüne sahip olabilir:
+
+```python
+class Category(models.Model):
+    category_name = models.CharField(max_length=50)
+    category_slug = models.SlugField(unique=True)
+    category_image = models.ImageField(upload_to="kategori_resimleri")
+
+    def __str__(self):
+        return self.category_name
+
+
+class SubCategory(models.Model):
+    category_name = models.CharField(max_length=50)
+    category_slug = models.SlugField(unique=True)
+    # 👇 ForeignKey ile ana kategoriye bağlıyoruz
+    parent_category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,     # Kategori silinirse alt kategoriler de silinir
+        related_name="altkategoriler" # Tersine erişim için
+    )
+
+    def __str__(self):
+        return self.category_name
+```
+
+#### on_delete Seçenekleri:
+
+| Seçenek | Açıklama |
+|---------|----------|
+| `CASCADE` | Ana kayıt silinirse bağlı kayıtlar da silinir |
+| `PROTECT` | Ana kayıt silinmeye çalışılırsa hata verir |
+| `SET_NULL` | Ana kayıt silinirse NULL yapar (null=True gerekir) |
+| `SET_DEFAULT` | Ana kayıt silinirse varsayılan değer atar |
+
+#### related_name Kullanımı:
+
+```python
+# Kategori üzerinden alt kategorilere erişim
+kategori = Category.objects.get(id=1)
+alt_kategoriler = kategori.altkategoriler.all()  # related_name sayesinde
+```
+
+#### 2️⃣ ManyToManyField (Çoka-Çok İlişki)
+
+Bir ürün birden fazla etikete, bir etiket birden fazla ürüne sahip olabilir:
+
+```python
+class Tag(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Product(models.Model):
+    title = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    tags = models.ManyToManyField(Tag)  # 👈 Çoka-çok ilişki
+
+    def __str__(self):
+        return self.title
+```
+
+#### ManyToManyField Kullanımı:
+
+```python
+# Ürüne etiket ekleme
+urun = Product.objects.get(id=1)
+etiket = Tag.objects.get(id=1)
+urun.tags.add(etiket)
+
+# Ürünün tüm etiketleri
+urun.tags.all()
+
+# Bir etiketin tüm ürünleri
+etiket.product_set.all()
+```
+
+---
+
+### 🎨 Custom Metodlar
+
+Modellere özel metodlar ekleyebilirsiniz:
+
+```python
+class Product(models.Model):
+    title = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    # 👇 İndirim yüzdesini hesaplayan metod
+    def discount_percent(self):
+        return int((self.price - self.discount_price) * 100 / self.price)
+
+    # 👇 Başlık ve slug birleştiren metod
+    def fulltitle(self):
+        return f"{self.title}-{self.slug}"
+```
+
+---
+
+### 🔄 save() Metodunu Override Etme
+
+Kaydetmeden önce otomatik işlemler yapabilirsiniz:
+
+```python
+from django.utils.text import slugify
+import uuid
+
+class Product(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        # Eğer slug boşsa otomatik oluştur
+        if not self.slug:
+            unique = uuid.uuid4().hex[:8]  # Benzersiz ID
+            link = slugify(self.title)     # Türkçe karakterleri düzenle
+            self.slug = f"{link}-{unique}"
+        super().save(*args, **kwargs)  # Asıl kaydetme işlemi
+```
+
+> 💡 **slugify** fonksiyonu Türkçe karakterleri URL-dostu hale getirir:
+> `"Laptop Çantası"` → `"laptop-cantasi"`
+
+---
+
+## 🔄 Migration İşlemleri (Veritabanı Güncelleme)
+
+> 💡 **Migration Nedir?** Model değişikliklerini veritabanına uygulayan dosyalardır.
+
+### Temel Komutlar
+
+```bash
+# 1. Migration dosyası oluştur (models.py değiştikten sonra)
+python manage.py makemigrations
+
+# 2. Migration'ları veritabanına uygula
+python manage.py migrate
+
+# 3. Belirli bir app için migration oluştur
+python manage.py makemigrations urunler
+
+# 4. Migration geçmişini görüntüle
+python manage.py showmigrations
+
+# 5. SQL sorgusunu göster (uygulamadan önce)
+python manage.py sqlmigrate urunler 0001
+```
+
+### Migration Akışı
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    MODEL DEĞİŞİKLİĞİ                        │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+                  ┌──────────────────────┐
+                  │   models.py düzenle  │
+                  └──────────────────────┘
+                              │
+                              ▼
+                  ┌──────────────────────┐
+                  │   makemigrations     │
+                  │   (dosya oluştur)    │
+                  └──────────────────────┘
+                              │
+                              ▼
+                  ┌──────────────────────┐
+                  │      migrate         │
+                  │   (veritabanına      │
+                  │    uygula)           │
+                  └──────────────────────┘
+                              │
+                              ▼
+                    ┌──────────────────┐
+                    │  ✅ TAMAMLANDI!  │
+                    └──────────────────┘
+```
+
+### ⚠️ Önemli Notlar
+
+- Her model değişikliğinden sonra `makemigrations` çalıştırın
+- `makemigrations` sadece dosya oluşturur, `migrate` uygular
+- Migration dosyalarını silmeyin (versiyon kontrolü için önemli)
+- Ekip çalışmasında migration çakışmalarına dikkat edin
+
+---
+
+## 👨‍💼 Admin Paneli Özelleştirme
+
+> 💡 **Admin Paneli**: Django'nun yerleşik veritabanı yönetim arayüzü. `/admin/` adresinden erişilir.
+
+### 1️⃣ Süper Kullanıcı Oluşturma
+
+```bash
+python manage.py createsuperuser
+```
+
+Kullanıcı adı, e-posta ve şifre girmeniz istenecek.
+
+### 2️⃣ Modeli Admin'e Kaydetme
+
+`urunler/admin.py`:
+
+```python
+from django.contrib import admin
+from .models import Product, ProductImage, Tag
+
+# Basit kayıt
+admin.site.register(Product)
+admin.site.register(Tag)
+```
+
+### 3️⃣ Admin Görünümünü Özelleştirme
+
+```python
+from django.contrib import admin
+from .models import Product, ProductImage, Tag
+
+class ProductView(admin.ModelAdmin):
+    # Listede gösterilecek alanlar
+    list_display = ["title", "slug", "price", "discount_price", "category", "is_active"]
+
+    # Arama yapılabilecek alanlar
+    search_fields = ["title", "description"]
+
+    # Filtreleme seçenekleri (sağ tarafta)
+    list_filter = ["category", "is_active", "created_at"]
+
+    # Düzenleme formundaki alan sırası
+    fields = ["title", "description", "price", "discount_price", "category", "is_active"]
+
+    # Sayfa başına kayıt sayısı
+    list_per_page = 20
+
+# Özelleştirilmiş görünümle kaydet
+admin.site.register(Product, ProductView)
+```
+
+### 4️⃣ Inline (İç İçe) Kayıtlar
+
+Bir ürünün resimlerini ürün sayfasında düzenlemek için:
+
+```python
+from django.contrib import admin
+from .models import Product, ProductImage
+
+class ProductImageInlineView(admin.TabularInline):
+    model = ProductImage
+    extra = 3  # Boş form sayısı
+
+class ProductView(admin.ModelAdmin):
+    list_display = ["title", "price", "category"]
+    inlines = [ProductImageInlineView]  # 👈 Inline ekleme
+
+admin.site.register(Product, ProductView)
+```
+
+### 5️⃣ Kategori Admin Örneği
+
+```python
+from django.contrib import admin
+from .models import Category, SubCategory
+
+class SubCategoryInlineView(admin.TabularInline):
+    model = SubCategory
+    extra = 5
+
+class CategoryView(admin.ModelAdmin):
+    list_display = ["category_name", "category_slug", "category_image"]
+    fields = ["category_name", "category_slug", "category_image"]
+    search_fields = ["category_name", "category_slug"]
+    inlines = [SubCategoryInlineView]  # Alt kategoriler ana kategoride gösterilir
+
+admin.site.register(Category, CategoryView)
+admin.site.register(SubCategory)
+```
+
+---
+
+## 🔐 Kullanıcı Kimlik Doğrulama (Authentication)
+
+> 💡 **Authentication**: Kullanıcı giriş, çıkış ve kayıt işlemlerini yöneten sistem.
+
+### 1️⃣ Gerekli Import'lar
+
+```python
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User, Group
+from django.contrib import messages
+```
+
+### 2️⃣ Giriş (Login) View
+
+`accounts/views.py`:
+
+```python
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Kullanıcıyı doğrula
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)  # Oturumu başlat
+            return redirect('anasayfa')
+
+        messages.error(request, "Kullanıcı bulunamadı")
+        return render(request, 'login.html')
+
+    return render(request, "login.html")
+```
+
+### 3️⃣ Kayıt (Register) View
+
+```python
+def register_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
+
+        # Şifre kontrolü
+        if password != confirm_password:
+            messages.warning(request, "Şifreler uyuşmuyor!")
+            return render(request, "register.html")
+
+        # Kullanıcı adı kontrolü
+        if User.objects.filter(username=username).exists():
+            messages.warning(request, "Bu kullanıcı adı zaten kullanılıyor!")
+            return render(request, "register.html")
+
+        # Yeni kullanıcı oluştur
+        user = User.objects.create_user(
+            username=username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            email=email
+        )
+        user.save()
+
+        # Kullanıcıyı bir gruba ekle (opsiyonel)
+        role = Group.objects.filter(name="Satıcılar").first()
+        if role:
+            user.groups.add(role)
+
+        messages.success(request, "Kayıt başarılı! Giriş yapabilirsiniz.")
+        return redirect("login")
+
+    return render(request, "register.html")
+```
+
+### 4️⃣ Çıkış (Logout) View
+
+```python
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+```
+
+### 5️⃣ URL Tanımlamaları
+
+`accounts/urls.py`:
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('login/', views.login_view, name="login"),
+    path('register/', views.register_view, name="register"),
+    path('logout/', views.logout_view, name="logout"),
+]
+```
+
+### 6️⃣ Template'de Kullanıcı Kontrolü
+
+```html
+{% if user.is_authenticated %}
+    <p>Hoş geldin, {{ user.username }}!</p>
+    <a href="{% url 'logout' %}">Çıkış Yap</a>
+{% else %}
+    <a href="{% url 'login' %}">Giriş Yap</a>
+{% endif %}
+```
+
+### 7️⃣ Login Form Template
+
+```html
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <label for="username">Kullanıcı Adı</label>
+    <input type="text" name="username" id="username" required>
+
+    <label for="password">Şifre</label>
+    <input type="password" name="password" id="password" required>
+
+    <button type="submit">GİRİŞ YAP</button>
+</form>
+
+<a href="{% url 'forgot_password' %}">Şifremi Unuttum</a>
+```
+
+---
+
+## 🔑 Şifre Sıfırlama (Password Reset)
+
+> 💡 Django'nun hazır şifre sıfırlama view'larını kullanarak güvenli bir şifre sıfırlama sistemi kurabilirsiniz.
+
+### 1️⃣ URL Tanımlamaları
+
+`accounts/urls.py`:
+
+```python
+from django.urls import path, reverse_lazy
+from . import views
+from django.contrib.auth import views as auth_view
+
+urlpatterns = [
+    # Şifremi unuttum sayfası
+    path('forgot-password/', auth_view.PasswordResetView.as_view(
+        template_name="forgot_password.html",
+        html_email_template_name="password_reset_email.html",
+        subject_template_name="password_reset_subject.txt",
+        success_url=reverse_lazy("password_reset_done")
+    ), name="forgot_password"),
+
+    # E-posta gönderildi sayfası
+    path('reset-password/done/', auth_view.PasswordResetDoneView.as_view(
+        template_name="password_reset_done.html"
+    ), name="password_reset_done"),
+
+    # Şifre sıfırlama linki (e-postadan gelen)
+    path('reset-password/<uidb64>/<token>/', auth_view.PasswordResetConfirmView.as_view(
+        template_name="reset_password.html"
+    ), name="password_reset_confirm"),
+
+    # Şifre başarıyla değiştirildi sayfası
+    path('reset-password/complete/', auth_view.PasswordResetCompleteView.as_view(
+        template_name="password_reset_complete.html"
+    ), name="password_reset_complete"),
+]
+```
+
+### 2️⃣ E-posta Ayarları
+
+`settings.py`:
+
+```python
+# Development için (e-postalar terminalde görünür)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Production için Gmail SMTP:
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your-app-password'
+# DEFAULT_FROM_EMAIL = 'Site Adı <your-email@gmail.com>'
+
+# Şifre sıfırlama linki geçerlilik süresi (saniye)
+PASSWORD_RESET_TIMEOUT = 86400  # 24 saat
+```
+
+### 3️⃣ Template Örnekleri
+
+`forgot_password.html`:
+
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Şifremi Unuttum</h1>
+
+<form method="post" action="{% url 'forgot_password' %}">
+    {% csrf_token %}
+
+    <label for="email">E-Posta Adresi</label>
+    <input type="email" name="email" id="email" required>
+
+    <button type="submit">Sıfırlama Bağlantısı Gönder</button>
+</form>
+
+<a href="{% url 'login' %}">Giriş sayfasına dön</a>
+{% endblock %}
+```
+
+`password_reset_email.html` (E-posta şablonu):
+
+```html
+Merhaba,
+
+Şifre sıfırlama talebinde bulundunuz.
+Aşağıdaki linke tıklayarak yeni şifrenizi belirleyebilirsiniz:
+
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+
+Bu link 24 saat geçerlidir.
+
+Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.
+```
+
+---
+
+## 🛡️ İzin Sistemi (Permissions)
+
+> 💡 Django'nun izin sistemi ile kullanıcıların ne yapabileceğini kontrol edebilirsiniz.
+
+### 1️⃣ @login_required Dekoratörü
+
+Sadece giriş yapmış kullanıcıların erişebileceği sayfalar için:
+
+```python
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def category_home(request):
+    # Sadece giriş yapmış kullanıcılar erişebilir
+    # Giriş yapmamış kullanıcılar /accounts/login/ sayfasına yönlendirilir
+    return render(request, "category_home.html")
+```
+
+Login URL'ini ayarlamak için `settings.py`:
+
+```python
+LOGIN_URL = '/accounts/login/'
+```
+
+### 2️⃣ @permission_required Dekoratörü
+
+Belirli izinlere sahip kullanıcılar için:
+
+```python
+from django.contrib.auth.decorators import permission_required
+
+@permission_required("category.add_category", login_url="/accounts/login/")
+def category_add(request):
+    # Sadece category.add_category iznine sahip kullanıcılar erişebilir
+    return render(request, "category_add.html")
+```
+
+### 3️⃣ View İçinde İzin Kontrolü
+
+```python
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.contrib import messages
+
+@login_required
+def category_home(request):
+    # Manuel izin kontrolü
+    if not request.user.has_perm("category.add_category"):
+        messages.error(request, "Bu sayfaya erişim izniniz yok!")
+        return redirect('login')
+
+    category_list = Category.objects.all()
+    return render(request, "category_home.html", {
+        "category_list": category_list
+    })
+```
+
+### 4️⃣ Template'de İzin Kontrolü
+
+```html
+{% if perms.category.add_category %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="category_name" placeholder="Kategori adı">
+        <button type="submit">Ekle</button>
+    </form>
+{% endif %}
+
+{% if perms.category.delete_category %}
+    <a href="{% url 'category_delete' category.id %}">Sil</a>
+{% endif %}
+
+{% if perms.category.change_category %}
+    <a href="{% url 'category_update' category.id %}">Güncelle</a>
+{% endif %}
+
+{% if perms.category.view_category %}
+    <a href="{% url 'category_details' category.id %}">Görüntüle</a>
+{% endif %}
+```
+
+### 5️⃣ Django İzin Türleri
+
+Her model için otomatik oluşturulan izinler:
+
+| İzin | Format | Açıklama |
+|------|--------|----------|
+| Ekleme | `app.add_model` | Yeni kayıt ekleme |
+| Değiştirme | `app.change_model` | Kayıt düzenleme |
+| Silme | `app.delete_model` | Kayıt silme |
+| Görüntüleme | `app.view_model` | Kayıt görüntüleme |
+
+Örnek: `category.add_category`, `category.delete_category`
+
+---
+
+## 💬 Messages Framework (Bildirim Mesajları)
+
+> 💡 Kullanıcıya işlem sonuçlarını göstermek için kullanılır.
+
+### 1️⃣ View'da Mesaj Ekleme
+
+```python
+from django.contrib import messages
+
+def category_home(request):
+    if request.method == "POST":
+        category_name = request.POST.get('category_name')
+
+        if category_name == "":
+            messages.warning(request, "Lütfen kategori adını yazınız")
+            return redirect('category')
+
+        Category.objects.create(category_name=category_name)
+        messages.success(request, "Kategori başarıyla eklendi!")
+        return redirect('category')
+
+    return render(request, "category_home.html")
+```
+
+### 2️⃣ Mesaj Türleri
+
+```python
+messages.debug(request, "Debug mesajı")     # Geliştirici için
+messages.info(request, "Bilgi mesajı")      # Genel bilgi
+messages.success(request, "Başarılı!")      # Başarılı işlem
+messages.warning(request, "Dikkat!")        # Uyarı
+messages.error(request, "Hata oluştu!")     # Hata
+```
+
+### 3️⃣ Template'de Mesajları Gösterme
+
+```html
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+```
+
+### 4️⃣ Özel Alert Bileşeni (include ile)
+
+`alert.html`:
+
+```html
+<div class="p-4 mb-4 rounded-lg
+    {% if tag == 'success' %}bg-green-100 text-green-800{% endif %}
+    {% if tag == 'warning' %}bg-yellow-100 text-yellow-800{% endif %}
+    {% if tag == 'error' %}bg-red-100 text-red-800{% endif %}
+    {% if tag == 'info' %}bg-blue-100 text-blue-800{% endif %}">
+    {{ message }}
+</div>
+```
+
+Kullanımı:
+
+```html
+{% for message in messages %}
+    {% include 'alert.html' with message=message tag=message.tags %}
+{% endfor %}
+```
+
+---
+
+## 📤 Dosya Yükleme (File Upload)
+
+> 💡 Kullanıcıların resim ve dosya yüklemesi için gerekli ayarlar.
+
+### 1️⃣ settings.py Ayarları
+
+```python
+# Medya dosyaları için URL ve klasör
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+```
+
+### 2️⃣ urls.py Ayarları
+
+Ana `urls.py`:
+
+```python
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    # ... diğer URL'ler
+]
+
+# Geliştirme ortamında medya dosyalarını servis et
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+### 3️⃣ Model'de ImageField/FileField
+
+```python
+class Category(models.Model):
+    category_name = models.CharField(max_length=50)
+    category_image = models.ImageField(upload_to="kategori_resimleri")
+    # Dosyalar media/kategori_resimleri/ klasörüne kaydedilir
+
+
+class ProductImage(models.Model):
+    image = models.ImageField(upload_to="product_images")
+    alt_text = models.CharField(max_length=200)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
+    is_main = models.BooleanField(default=False)
+```
+
+> 💡 **ImageField** için `pillow` kütüphanesi gerekir: `pip install pillow`
+
+### 4️⃣ Form'da Dosya Yükleme
+
+```html
+<!-- enctype="multipart/form-data" zorunlu! -->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="file">Resim Seç</label>
+    <input type="file" name="file" accept="image/*">
+
+    <button type="submit">Yükle</button>
+</form>
+```
+
+### 5️⃣ View'da Dosya Alma
+
+```python
+def category_home(request):
+    if request.method == "POST":
+        category_name = request.POST.get('category_name')
+        file = request.FILES.get('file')  # 👈 Dosyayı al
+
+        if file is None:
+            messages.warning(request, "Lütfen dosya seçin")
+            return redirect('category')
+
+        Category.objects.create(
+            category_name=category_name,
+            category_image=file  # 👈 Dosyayı kaydet
+        )
+        return redirect('category')
+```
+
+### 6️⃣ Template'de Resim Gösterme
+
+```html
+<img src="{{ category.category_image.url }}" alt="{{ category.category_name }}">
+```
+
+---
+
+## 🎨 Static Dosyalar (CSS, JS, Resimler)
+
+> 💡 Sitenin tasarımı için kullanılan dosyalar (CSS, JavaScript, ikonlar vb.)
+
+### 1️⃣ settings.py Ayarları
+
+```python
+STATIC_URL = 'static/'
+
+# Proje seviyesinde static klasörler (opsiyonel)
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+```
+
+### 2️⃣ Klasör Yapısı
+
+```
+eticaret/
+├── eticaret/
+│   └── static/
+│       ├── css/
+│       │   └── style.css
+│       ├── js/
+│       │   └── main.js
+│       └── img/
+│           ├── banner.gif
+│           └── icon/
+│               ├── facebook.webp
+│               └── instagram.webp
+```
+
+### 3️⃣ Template'de Static Kullanımı
+
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <img src="{% static 'img/banner.gif' %}" alt="banner">
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
+```
+
+> ⚠️ **Önemli**: Her template'in başında `{% load static %}` yazmayı unutmayın!
+
+---
+
+## 🔗 Include Template Tag
+
+> 💡 Tekrar eden HTML parçalarını ayrı dosyalara ayırıp dahil etme.
+
+### Kullanım
+
+```html
+<!-- footer.html dosyasını dahil et -->
+{% include 'footer.html' %}
+
+<!-- Değişken göndererek dahil et -->
+{% include 'alert.html' with message=message tag=message.tags %}
+
+<!-- Birden fazla değişken göndererek -->
+{% include 'card.html' with title=product.title price=product.price %}
+```
+
+### Örnek: Footer Include
+
+`footer.html`:
+
+```html
+<footer>
+    <p>&copy; 2025 E-Ticaret Sitesi</p>
+    <div>
+        <a href="#"><img src="{% static 'img/icon/facebook.webp' %}" alt="Facebook"></a>
+        <a href="#"><img src="{% static 'img/icon/instagram.webp' %}" alt="Instagram"></a>
+    </div>
+</footer>
+```
+
+`base.html`:
+
+```html
+<body>
+    <header>...</header>
+    <main>{% block content %}{% endblock %}</main>
+    {% include 'footer.html' %}
+</body>
+```
+
+---
+
+## 🌍 Dil ve Zaman Dilimi Ayarları
+
+`settings.py`:
+
+```python
+# Türkçe dil ayarı
+LANGUAGE_CODE = 'tr-TR'
+
+# İstanbul zaman dilimi
+TIME_ZONE = 'Europe/Istanbul'
+
+# Uluslararasılaştırma aktif
+USE_I18N = True
+
+# Zaman dilimi aktif
+USE_TZ = True
+```
+
+### Tarih Formatları
+
+Template'de:
+
+```html
+{{ urun.created_at|date:"d/m/Y" }}       <!-- 25/01/2025 -->
+{{ urun.created_at|date:"d F Y" }}       <!-- 25 Ocak 2025 -->
+{{ urun.created_at|date:"d.m.Y H:i" }}   <!-- 25.01.2025 14:30 -->
+```
+
+---
+
+## 🛠️ get_object_or_404 Kullanımı
+
+> 💡 Kayıt bulunamazsa otomatik 404 hatası döndürür.
+
+```python
+from django.shortcuts import get_object_or_404
+
+def category_update(request, id):
+    # Eğer kategori bulunamazsa otomatik 404 sayfası gösterilir
+    category = get_object_or_404(Category, id=id)
+
+    if request.method == "POST":
+        category.category_name = request.POST.get('category_name')
+        category.save()
+        return redirect('category')
+
+    return render(request, "update_category.html", {"category": category})
+```
+
+### Normal Yöntem vs get_object_or_404
+
+```python
+# ❌ Uzun yol
+def category_details(request, id):
+    try:
+        category = Category.objects.get(id=id)
+    except Category.DoesNotExist:
+        raise Http404("Kategori bulunamadı")
+    return render(request, "category_detail.html", {"category": category})
+
+# ✅ Kısa yol
+def category_details(request, id):
+    category = get_object_or_404(Category, id=id)
+    return render(request, "category_detail.html", {"category": category})
+```
+
+---
+
+## 📊 Proje Yapısı Özeti
+
+```
+eticaret/
+│
+├── manage.py                 # Django yönetim komutları
+│
+├── eticaret/                 # Ana proje klasörü
+│   ├── __init__.py
+│   ├── settings.py           # Proje ayarları
+│   ├── urls.py               # Ana URL yönlendirmeleri
+│   ├── views.py              # Ana view'lar
+│   ├── wsgi.py
+│   ├── asgi.py
+│   ├── static/               # Static dosyalar (CSS, JS, IMG)
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── img/
+│   └── templates/            # Proje seviyesi template'ler
+│       ├── base.html
+│       ├── home.html
+│       ├── footer.html
+│       └── alert.html
+│
+├── accounts/                 # Kullanıcı yönetimi app'i
+│   ├── models.py
+│   ├── views.py              # login, register, logout
+│   ├── urls.py
+│   ├── admin.py
+│   └── templates/
+│       ├── login.html
+│       ├── register.html
+│       ├── forgot_password.html
+│       └── reset_password.html
+│
+├── category/                 # Kategori yönetimi app'i
+│   ├── models.py             # Category, SubCategory modelleri
+│   ├── views.py              # CRUD işlemleri
+│   ├── urls.py
+│   ├── admin.py
+│   └── templates/
+│       ├── category_home.html
+│       └── category_detail.html
+│
+├── urunler/                  # Ürün yönetimi app'i
+│   ├── models.py             # Product, Tag, ProductImage
+│   ├── views.py
+│   ├── urls.py
+│   ├── admin.py
+│   └── templates/
+│
+├── media/                    # Yüklenen dosyalar
+│   ├── kategori_resimleri/
+│   └── product_images/
+│
+└── db.sqlite3                # SQLite veritabanı
+```
 
 ---
 
